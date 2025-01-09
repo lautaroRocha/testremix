@@ -6,8 +6,9 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks"
 import { setSelectedBranch } from "../../../redux/slices/branchSlice"
 import Cookies from "js-cookie"
 import { capitalizeWords } from "../../../utils/capitalize"
+import { BranchOffice } from "~/@types"
 
-const useSelectedBranch = () => {
+const useSelectedBranch = (data:BranchOffice) => {
   const { branch, business } = useParams()
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(true)
@@ -15,32 +16,41 @@ const useSelectedBranch = () => {
   const { isLogged, id } = useAppSelector((state) => state.tenant)
   const { selected } = useAppSelector((state) => state.branch)
 
-  useEffect(() => {
-    if (business && branch) {
-      const favicon = document.querySelector("link[rel~='icon']")
-      ;(favicon as HTMLAnchorElement).href = Cookies.get("image") || ""
-      const titleTag = document.querySelector("title")
-      ;(titleTag as HTMLTitleElement).textContent = `${capitalizeWords(
-        business
-      )} - ${capitalizeWords(branch.replaceAll("-", " "))}`
-    }
-  }, [branch, business])
+  // useEffect(() => {
+  //   if (business && branch) {
+  //     const favicon = document.querySelector("link[rel~='icon']")
+  //     ;(favicon as HTMLAnchorElement).href = Cookies.get("image") || ""
+  //     const titleTag = document.querySelector("title")
+  //     ;(titleTag as HTMLTitleElement).textContent = `${capitalizeWords(
+  //       business
+  //     )} - ${capitalizeWords(branch.replaceAll("-", " "))}`
+  //   }
+  // }, [branch, business])
+
+  // useEffect(() => {
+  //   const getBranches = async () => {
+  //     try {
+  //       const res = await apiService.get<any>(constants.API_BRANCHES + "/" + branch, {})
+  //       dispatch(setSelectedBranch(res))
+  //     } catch (e) {
+  //       console.error(e)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   if (isLogged && id) {
+  //     getBranches()
+  //   }
+  // }, [isLogged, id])
+
 
   useEffect(() => {
-    const getBranches = async () => {
-      try {
-        const res = await apiService.get<any>(constants.API_BRANCHES + "/" + branch, {})
-        dispatch(setSelectedBranch(res))
-      } catch (e) {
-        console.error(e)
-      } finally {
-        setLoading(false)
-      }
+    if(data){
+      setLoading(false)
+      dispatch(setSelectedBranch(data))
     }
-    if (isLogged && id) {
-      getBranches()
-    }
-  }, [isLogged, id])
+  }, [data])
+
 
   const goToMenu = () => {
     const titleTag = document.querySelector("title")

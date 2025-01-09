@@ -6,9 +6,10 @@ import useSelectedBranch from "./hooks/useSelectedBranch"
 import { BranchBadge } from ".."
 import { useAppSelector } from "../../redux/hooks"
 import { useTranslation } from "react-i18next"
+import { BranchOffice } from "~/@types"
 
-const SelectedBranch = () => {
-  const { selectedBranch, loading, goToMenu, goToPickup } = useSelectedBranch()
+const SelectedBranch = ({data}: {data: BranchOffice}) => {
+  const { selectedBranch, loading, goToMenu, goToPickup } = useSelectedBranch(data)
 
   const { image } = useAppSelector((state) => state.tenant)
 
