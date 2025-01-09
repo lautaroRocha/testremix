@@ -1,0 +1,131 @@
+
+.chips {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100dvw;
+    overflow: scroll;
+    margin: -1rem auto 0;
+    padding-top: .5rem;
+    padding-left: 1rem;
+    background: var(--grey-5);
+    z-index: 1001;
+    scroll-behavior: smooth;
+    position: absolute;
+}
+
+.chips::after{
+    pointer-events: none;
+    content: ' as';
+    z-index: 10000;
+    color: transparent;
+    background: linear-gradient(90deg, var(--grey-5), transparent 3%, transparent 96%, var(--grey-5) 99%);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    top: 175px; /*header height*/
+    height: 2rem;
+}
+
+.chips::-webkit-scrollbar{
+    width: 0;
+}
+
+.chips > span{
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    white-space: nowrap;
+    background: white;
+    padding: 3px 13px 3px 3px;
+    border-radius: 20px;
+    position: relative;
+    transition: all .3s ease-in-out;
+}
+
+.chips > span > label {
+    color: var(--grey-60);
+    line-height: 24px;
+}
+
+.chips > span > img{
+    margin-left: .5ch;
+    z-index: 3;
+    padding-bottom: 1px;
+}
+
+.chips > span > .imgDrop{
+    border-radius: 50%;
+    background: var(--grey-5);
+    width: 1.5rem;
+    aspect-ratio: 1/1;
+    position: absolute;
+    z-index: 2;
+}
+
+.chips > .selected{
+    background-color: var(--yellow-20);
+}
+.chips > .selected > label{
+    color: var(--grey-100);
+    font-weight: 700;
+    margin-left: .5ch;
+}
+.chips > .selected .imgDrop {
+    background-color: var(--yellow-100);
+}
+.chips > .selected img {
+    filter: brightness(100);   
+}
+
+
+.chips.pickup > .selected .imgDrop{
+    background: var(--turquoise-100);
+}
+
+
+.chips.pickup > .selected{
+    background-color: var(--turquoise-20);
+}
+
+.chips+.selectedTitle{
+    background-color: var(--grey-5);
+    padding: 1rem;
+    font-weight: 700; 
+    color: var(--grey-100);
+    font-size: 18px;
+    position: sticky;
+    top: 26px;
+    z-index: 40;
+    text-align: left;
+    background: linear-gradient(-180deg, var(--grey-5) 80%, transparent 100%);
+}
+
+
+@media (min-width: 950px){
+    .chips{
+        width: calc(100% - 2rem);
+        padding-inline: 0;
+        padding-bottom: 1rem;
+        padding-right: 100dvw;
+        padding-left: 1rem;
+    }
+    .chips > span:first-of-type{
+        margin-left: 1rem;
+    }
+
+    .chips > span, .chips > span > label, .chips > span > img{
+        cursor: pointer;
+    }
+
+    .chips::-webkit-scrollbar,.chips::-webkit-track,.chips::-webkit-thumb {
+        max-height: 0px;
+    }
+
+    .chips::after{
+        top: calc(175px + 2rem);;
+    }
+
+
+}

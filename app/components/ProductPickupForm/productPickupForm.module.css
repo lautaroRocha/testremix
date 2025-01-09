@@ -1,0 +1,101 @@
+.productPickupForm{
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.productPickupForm label{ 
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: var(--grey-100);
+    font-weight: 500;
+    font-size: 14px;
+    gap: 1ch;
+    margin-top: 5%;
+    height: 40%;
+}
+.productPickupForm label > textarea{
+    resize: none;
+    height: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--grey-10);
+    padding: 10px 15px;
+    font: inherit;
+    font-weight: 400;
+    background-color: white;
+}
+
+.productPickupForm  label > textarea:focus{
+    outline-color: var(--turquoise-100);
+    caret-color: var(--turquoise-100);
+}
+
+.productPickupForm label > textarea::placeholder{
+    color: var(--grey-50);
+}
+.productPickupFormControls{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+
+}
+
+.productPickupFormControls > div{
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+}
+.productPickupFormControls > div > button{
+    border: 1px solid var(--grey-10);
+    width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: 8.3px;
+    background-color: transparent;
+    font-size: 2rem;
+    color: var(--yellow-100);
+    cursor: pointer;
+}
+.productPickupFormControls > div > button:disabled{
+    color: var(--grey-50);
+}
+.productPickupFormControls > div > span{
+    font-size: 19px;
+}
+.productPickupFormControls > span{
+    color: var(--turquoise-100);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-left: auto;
+}
+.productPickupForm>button{
+    width: 100%;
+    background-color: var(--turquoise-100);
+    border-radius: 40px;
+    color: var(--white);
+    border: none;
+    outline: none;
+    height: 42px;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2ch;
+    margin: 1.5rem auto 0;
+    cursor: pointer;
+}
+
+@media(min-height:800px){
+    .productPickupForm label{ 
+        height: 50%;
+        margin-top: 10%;
+    }
+}
+
+@media(min-width:950px){
+    .productPickupForm{ 
+        height: 50%;
+    }
+}

@@ -1,0 +1,15 @@
+.logo {
+    display: grid;
+    background-color: var(--white);
+    border-radius: 65%;
+    aspect-ratio: 1/1;
+    place-content: center;
+    width: 3rem;
+    flex-shrink: 0;
+}
+
+.logo img{
+    width: 95%;
+    margin: auto;
+    border-radius: 50%;
+}

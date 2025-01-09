@@ -1,0 +1,172 @@
+.pickup{
+    width: 100dvw;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    background-color: var(--grey-5);
+    z-index: 1;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.pickup .queryTotal{
+    color: var(--grey-100);
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+    font-weight: 700;
+    padding-left: 1rem;
+}
+
+.pickup header{
+    margin-bottom: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    position: relative;
+    height: 171px;
+    top: 0;
+}
+
+.pickup header .headerLeft{
+    background: linear-gradient(180deg, #FCDBA0 15.22%, #F8A611 161.57%);
+    height: 100%;
+    width: 9%;
+    margin: 0;
+    margin-right: auto;
+    border-radius:0px 0px 16px 0px;
+}
+.pickup header .headerCenter{
+    background: linear-gradient(180deg, #FCDBA0 15.22%, #F8A611 161.57%);
+    height: 100%;
+    width: 82%;
+    margin: 0;
+    margin-bottom: auto;
+    position: relative;
+}
+.pickup header .headerCenter::after{
+    content: ' ';
+    background-color: var(--grey-5);
+    position: absolute;
+    bottom: -1rem;
+    height: 5rem;
+    border-radius: 16px;
+    width: 82dvw;
+    left: 0px;
+}
+.pickup header .headerRight{
+    background: linear-gradient(180deg, #FCDBA0 15.22%, #F8A611 161.57%);
+    height: 100%;
+    width: 9%;
+    margin: 0;
+    margin-left: auto;
+    border-radius:0px 0px 0px 16px;
+}
+
+.pickup > header > section{
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    display: flex;
+    align-items: center;
+    top: 38px;
+    gap: 1rem;
+    text-align: left;
+}
+
+.pickup > header > div {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 6rem;
+}
+
+.pickup header > div > div {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.pickup header+div {
+    position: absolute;
+    top: 113px;
+    width: 83dvw;
+}
+
+
+
+.pickup header + div input:focus + img{
+    transform: translateX(calc(-79vw + 1ch));
+}
+.pickup main{
+    width: 100%;
+    height: 85dvh;
+    margin-bottom: 25dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-bottom: 50vh;
+    margin-top: 1rem;
+}
+
+.pickup > header > section > figure + div{
+    position: absolute;
+    left: 1ch;
+    right: 0;
+    text-align: center;
+}
+
+
+@media ( min-width:950px){
+    .pickup header {
+        padding: 1rem;
+        background-color: var(--grey-5);
+        height: calc(171px + 2rem);
+    }
+    .pickup header .headerLeft{
+        width: 15%;
+        border-radius:16px 0px 16px 16px;
+    }
+    .pickup header .headerCenter{
+        width: 70%;
+    }
+    .pickup header .headerCenter::after{
+        width: 100%;
+        left: 0px;
+    }
+    .pickup header .headerRight{
+        width: 15%;
+        border-radius:0px 16px 16px 16px;
+    }
+    .pickup header+div {
+        width: 71%;
+        top: 133px;
+    }
+    .pickup header + div input:focus + img{
+        transform: translateX(calc(-68dvw + 2ch));
+    }
+
+    .pickup > header > section{
+        right: 5%;
+        left: 5%;
+        text-align: center;
+    }
+    .pickup > header > section > figure{
+        width: 7.5rem;
+        margin-top: .5rem;
+    }
+    .pickup > header > section > figure + div{
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+}

@@ -1,0 +1,285 @@
+@keyframes animateOverlay {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+
+
+
+.productDetail{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: var(--grey-50-5);
+    z-index: 1000000;
+    display: flex;
+    flex-direction: column;
+    animation-name: animateOverlay;
+    animation-duration: 3ms;
+    animation-fill-mode: forwards;
+    transition: background-color .1s ease-out;
+}
+
+.productDetail > article {
+    height: 60%;
+    margin-top: auto;
+    z-index: inherit;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transform: translateY(100%);
+    transition: transform top .3s ease-in-out;
+}
+
+.productDetail.active > article{
+    transform: translateY(0);
+
+}
+
+.productDetail > article::after {
+    content: ' ';
+    position: absolute;
+    color: white;
+    background-color: var(--white);
+    left: 40%;
+    right: 40%;
+    width: 20%;
+    height: 4px;
+    border-radius: 16px;
+    top: 2rem;
+}
+.productDetail > article > header{
+    display: none;
+}
+.productDetail > article > button {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    border: none;
+    outline: none;
+    width: 2.5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    background-color: var(--grey-10);
+}
+
+.productDetail > article >img{
+    width: 100%;
+    height: 50%;
+    border-radius: 20px 20px 0px 0px;
+    margin-top: 1rem;
+    object-fit: cover;
+}
+
+.productDetail > article > div{
+    border-radius: 20px 20px 0px 0px;
+    background-color: var(--white);
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    text-align: left;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.productDetail > article > div > header{
+    display: flex;
+    height: fit-content;
+    margin: unset;
+    padding: 0 0 1rem 0;
+}
+
+.productDetail > article > div > header > span{
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    white-space: nowrap;
+    background: var(--turquoise-10);
+    padding: 3px 13px 3px 3px;
+    border-radius: 20px;
+    position: relative;
+    height: fit-content;
+    transition: all .3s ease-in-out;
+}
+.productDetail > article > div > header > span > label{
+    color: var(--grey-100);
+    line-height: 16px;
+    font-size: 8px;
+}
+.productDetail > article > div > header > span > img{
+    margin-left: 3px;
+    z-index: 3;
+    padding-bottom: 1px;
+    width: 10px;
+}
+.imgDrop{
+    border-radius: 50%;
+    background: var(--turquoise-20);
+    width: 16px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    z-index: 2;
+}
+.productDetail > article > div > h3{
+    color: var(--grey-100);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 23px;
+}
+.productDetail > article > div > p{
+    color: var(--grey-60);
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+.productDetail > article > div > span{
+    color: var(--yellow-100);
+    font-weight: 700;
+    font-size: 20px;
+    margin-left: auto;
+    margin-top: 15%;
+}
+
+.productDetail.pickup > article > div > span{
+    color: var(--turquoise-100);
+}
+
+.productDetail.pickup > article{
+    height: 90%;
+}
+.productDetail.pickup > article > img{
+    height: 30%;
+}
+.productDetail.pickup > article > div{ 
+    top: 30%;
+}
+
+.animateDown {
+    animation-name: loseOverlay;
+    animation-delay: .2s;
+    animation-duration: .1s;
+    animation-fill-mode: forwards;
+}
+
+.animateDown > article{
+    animation-name: dropCard;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes loseOverlay{
+    0%{
+   opacity: 1;
+       }
+       100%{
+    opacity: 0;
+       }
+
+}
+
+@keyframes dropCard {
+    0%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(100%);
+    }
+}
+
+@media(min-width:950px){
+    .productDetail{
+        flex-direction: row;
+        left: unset;
+        right: 0;
+        width: 100%;
+        padding-right: 1rem;
+        cursor: pointer;
+    }
+    .productDetail > article {
+        width: 25%;
+        height: calc(100% - 200px);
+        background: var(--white);
+        border-radius: 16px;
+        margin-left: auto;
+        cursor: auto;
+    }
+    .productDetail > article::after{
+        content: unset;
+    }
+    .productDetail > article > img, .productDetail.pickup > article > img {
+        border-radius: 16px;
+        margin: 0 auto;
+        height: 22%;
+        width: calc(100% - 2rem);
+    }
+    
+    .productDetail > article > button {
+        display: none;
+    }
+    .productDetail > article > header {
+        display: flex;
+        justify-content: space-between;
+        color: var(--grey-70);
+        height: fit-content;
+        margin: unset;
+        font-weight: 600;
+        border-radius:16px 16px 0 0;
+        background-color: white;
+        padding: 1rem;
+    }
+    .productDetail > article > header > button{
+        width: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .productDetail > article > header > button > img{
+        width: 100%;
+    }
+
+    .productDetail > article > div {
+        top: 30%;
+    }
+    .productDetail:not(.pickup) > article > div {
+        top: 50%;
+    }
+    .productDetail:not(.pickup) > article > img, .productDetail.pickup > article > img {
+        height: 40%;
+    }
+    .productDetail.pickup > article > img{
+        height: 20%;
+    }
+    .productDetail > article > div > header {
+        background-color: white;
+    }
+
+    .productDetail > article > div > header > span > label{
+        font-size: 12px;
+    }
+
+    .productDetail.pickup > article{
+        height: 80%;
+    }
+}
+
+
+@media (min-height: 1900px){
+    .productDetail.active > article{
+        width: 70%;
+        height: 70%;
+    }
+    .productDetail:not(.pickup) > article > div {
+        top: 45%;
+    }
+}

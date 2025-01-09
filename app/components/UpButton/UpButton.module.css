@@ -1,0 +1,26 @@
+.upButton{
+    width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: var(--yellow-50);
+    border: 1px solid var(--yellow-100);
+    display: grid;
+    place-content: center;
+    position: fixed;
+    bottom: 5dvh;
+    right: 5dvw;
+    z-index: 1000000;
+    transform: rotate(-90deg);
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    box-shadow: 0px 0.92px 1.84px 0px hsla(228, 20%, 66%, 0.102);
+    outline: none;
+}
+ .upButton img{
+    filter: brightness(0) saturate(100%) invert(29%) sepia(27%) saturate(459%) hue-rotate(196deg) brightness(90%) contrast(86%);
+ }
+
+
+ .upButton.visible {
+    opacity: .7;
+ }

@@ -1,0 +1,155 @@
+.withBackButton {
+    position: fixed;
+    left: 8%;
+    right: 8%;
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+    padding: .5rem 0;
+    align-items: center;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+
+.withBackButton.withArrow{
+    padding: 1rem 0;
+}
+
+.withBackButton .backButton {
+    appearance: none;
+    background: transparent;
+    border: none;
+    width: 1.5rem;
+    height: 1rem;
+}
+.withBackButton .backButton img{
+    width: 75%;
+}
+.withBackButton .withLabel {
+    display: flex;
+    gap: .5ch;
+    align-items: center;
+}
+.withBackButton .withLabel img{
+    filter: brightness(0) saturate(100%) invert(30%) sepia(6%) saturate(1786%) hue-rotate(198deg) brightness(92%) contrast(89%);
+    height: 17px;
+}
+
+.withBackButton .withMenu {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.navOverlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+    background-color: transparent;
+    pointer-events: none;
+    user-select: none;
+    transition: all .5s ease-in-out;
+    overflow: hidden;
+}
+
+.navOverlay nav {
+    background-color: var(--white);
+    height: 100%;
+    width: 60%;
+    margin-left: auto;
+    border-radius: 15px 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    transform: translateX(100%);
+    opacity: 1;
+    transition: transform .5s ease-in-out;
+}
+
+.navOverlay > nav > header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    width: 100%;
+    padding: .5rem;
+}
+
+.navOverlay > nav > header > .backButton{
+    background: none;
+    border: none;
+    transform: rotate(180deg);
+}
+
+.navOverlay > nav > ul {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.navOverlay > nav > ul > li  {
+    list-style: none;
+    width: 100%;
+    text-align: left;
+}
+.navOverlay > nav > ul > li > a  {
+    display: flex;
+    text-decoration: none;
+    width: 100%;
+    justify-content: start;
+    height: 2rem;
+    align-items: center;
+    padding: 1ch;
+}
+.navOverlay > nav > ul > li > a >img {
+    width: .9rem;
+    height: auto;
+    filter: brightness(0) saturate(100%) invert(29%) sepia(8%) saturate(1592%) hue-rotate(198deg) brightness(89%) contrast(82%);
+    margin-right: 1ch;
+}
+.activeLink {
+    display: flex;
+    background-color: var(--turquoise-5);
+    color: var(--turquoise-100);
+}
+
+.navOverlay nav .activeLink  img {
+    filter: brightness(0) saturate(100%) invert(47%) sepia(85%) saturate(492%) hue-rotate(136deg) brightness(99%) contrast(91%);
+}
+
+.navOverlay nav .activeLink::after{
+    content: ' ';
+    background: url(/src/client/assets/check.svg) center no-repeat;
+    width: 1rem;
+    margin-left: auto;
+    aspect-ratio: 1/1;
+}
+
+.openNav{
+    background-color: var(--grey-50-5);
+    pointer-events: all;
+    user-select: none;
+}
+.openNav nav{
+    transform: translateX(0);
+}
+
+
+@media (min-width:950px) {
+    .withBackButton{
+        padding: 2rem 2.5rem;
+        left: 0%;
+        right: 0%;
+    }
+    .withBackButton button{
+        cursor: pointer;
+    }
+    .navOverlay nav {
+        width: 30%;
+    }
+    .withBackButton.withArrow{
+        padding: 2rem 2.5rem;
+    }
+}

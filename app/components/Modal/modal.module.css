@@ -1,0 +1,11 @@
+.overlay{
+        position: fixed;
+        background: var(--grey-50-5);
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: grid;
+        place-content: center;
+        z-index:10000000;
+}

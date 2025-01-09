@@ -1,0 +1,169 @@
+.branchSelector{
+    width: 100%;
+    height: 100%;
+}
+
+.branchSelector header{
+    display: flex;
+    padding: 1rem;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    color: var(--grey-100);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+.branchSelector main {
+    background-color: var(--grey-5);
+    margin-top: -2rem;
+    padding: 3rem 1rem 6rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 100dvw;
+    min-height: calc(100vh - 6rem);
+    max-height: calc(100vh - 6rem);
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.branchSelector main p {
+    font-weight: 700;
+    color: var(--grey-70);
+    position: fixed;
+    background: linear-gradient(180deg, var(--grey-5) 70%, transparent);
+    width: 93%;
+    height: 3rem;
+    margin-top: -1rem;
+    padding-top: .7rem;
+}
+.branchSelector main article{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--white);
+    transition: all .3s ease-in-out;
+    box-shadow: 0px 1px 2px 0px #979EBA1A;
+}
+.branchSelector main article:first-of-type{
+    margin-top: 2rem;
+}
+
+.branchSelector main article section{
+    display: flex;
+}
+.branchSelector main article section h2{
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--grey-100);
+    white-space: nowrap;
+    max-width: 25ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.branchSelector main article section:first-of-type{
+    justify-content: end;
+    gap: 1rem;
+}
+.branchSelector main article.selectedBranch{
+    border: 1px solid var(--turquoise-100);
+    background-color: var(--turquoise-5);
+}
+.branchSelector main article.selectedBranch .arrow{
+    filter: brightness(0) saturate(100%) invert(61%) sepia(85%) saturate(3715%) hue-rotate(148deg) brightness(95%) contrast(91%);
+
+}
+
+    .branchSelector main article section:first-of-type div{
+        display: flex;
+        gap: 1ch;
+        background-color: var(--yellow-10);
+        padding: 1px 10px;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: .6rem;
+    }
+    .branchSelector main article section:first-of-type div img{
+        width: 1rem;
+        aspect-ratio: 1/1;
+
+    }
+    .branchSelector main article section:first-of-type div:last-of-type{
+        background-color: var(--turquoise-10);
+    }
+    .branchSelector main article section:last-of-type >div{
+        color: var(--grey-70);
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 1ch;
+    }
+    .branchSelector main article section:last-of-type >div>span{
+        white-space: nowrap;
+        max-width: 35ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    
+    }
+
+.branchSelector main article section:last-of-type > :last-child{
+    margin-left: auto;
+}
+
+.branchSelector footer{
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    background-color: var(--white);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 21px 15px 16px;
+    gap: 5%;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 4px 0px 8px 0px #979EBA91;
+
+}
+.branchSelector footer button{
+    width: 45%;
+}
+
+@media (min-width: 950px){
+    .branchSelector{
+        width: 33dvw;
+        height: 80dvh;
+        position: relative;
+        z-index: 100;
+    }
+    .branchSelector main, .branchSelector footer{
+        min-width: unset;
+        width: 33dvw;
+    }
+    .branchSelector main p{
+        display: none;
+    }
+    .branchSelector header{
+        background-color: var(--turquoise-10);
+        border-radius: 15px 15px 0px 0px;
+        padding: 23px 1rem 15px 15px;
+    }
+    .branchSelector header figure{
+        margin-left: 1rem;
+        width: 4rem;
+    }
+    .branchSelector > div:nth-of-type(1){
+        background: linear-gradient(180deg, var(--turquoise-10), white);        
+        width: 100%;
+        padding-inline: 1rem;
+    }
+    .branchSelector > div:nth-of-type(1) > input:focus + img{
+        transform: translateX(calc(-31dvw + 1ch));
+    }
+
+
+}
