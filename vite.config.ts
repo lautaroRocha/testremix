@@ -11,6 +11,16 @@ declare module "@remix-run/node" {
 export default defineConfig({
   plugins: [
     remix({
+      routes(defineRoutes) {
+        return defineRoutes((route) => {
+          route("/", "pages/MainPage.tsx", { index: true });
+          route("/empresas", "pages/TenantsPage.tsx");
+          route(":business", "pages/TenantSplashPage.tsx");
+          route(":business/seleccionar-sucursal", "pages/SelectBranchPage.tsx");
+          route(":business/:branch", "pages/SelectedBranchPage.tsx");
+          route(":business/:branch/menu", "pages/MenuPage.tsx");
+          });
+      },
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
