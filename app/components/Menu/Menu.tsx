@@ -13,22 +13,24 @@ import {
 import useMenu from "./hooks/useMenu"
 import style from "./menu.module.css"
 import { useTranslation } from "react-i18next"
+import { Product, ProductCategory } from "~/@types"
 
-const Menu = () => {
+const Menu = ({products, categories} : {products: Product[], categories: ProductCategory[]}) => {
+
   const {
     selectedCategory,
     setSelectedCategory,
-    data,
     categoriesAsIconOptions,
     goToCategory,
     selectedProduct,
     handleSearch,
     query,
+    data,
     loading,
     handleProductSelection,
     handleProductSelectionReset,
     lastPositionY
-  } = useMenu()
+  } = useMenu(products, categories)
 
   const { t } = useTranslation("menu")
 

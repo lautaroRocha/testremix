@@ -39,7 +39,7 @@ const ProductCard = ({ product, onClick, isSelected }: ProductCardProps) => {
       />
       <h3>{product.product_name}</h3>
       <p>{product.description}</p>
-      <span>{currencyFormat(numberFormat.format(product.price), selected.currency_code)}</span>
+      <span>{currencyFormat(numberFormat.format(product.price), selected?.currency_code)}</span>
       {isPickup ? <AddOrAdded id={product.id} /> : <></>}
     </div>
   )

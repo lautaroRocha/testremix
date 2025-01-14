@@ -1,24 +1,19 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Product } from "../../../@types"
-import { CategoriesContext, ProductsContext } from "../../WithProductsAndCategories/context"
+import { Product, ProductCategory } from "../../../@types"
 import { useAppSelector } from "../../../redux/hooks"
 import { useTranslation } from "react-i18next"
-import Cookies from "js-cookie"
-import { capitalizeWords } from "../../../utils/capitalize"
 import { useWindowSize } from "../../../hooks/useWindowSize"
 
-const useMenu = () => {
-  const { data } = useContext(ProductsContext)
-  const { categories } = useContext(CategoriesContext)
+const useMenu = (data: Product[], categories: ProductCategory[]) => {
   const { selected } = useAppSelector((state) => state.branch)
   const { business } = useParams()
   const [loading, setLoading] = useState<boolean>(true)
   const [selectedCategory, setSelectedCategory] = useState<string>("")
-  const [products, setProducts] = useState<Product[]>(data)
   const [query, setQuery] = useState<string>("")
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [parsedProducts, setParsedProducts] = useState<Record<string, Product[]>>({})
+  const [products, setProducts] = useState<Product[]>(data)
 
   const [lastPositionY, setLastPositionY] = useState<number>(0)
 
@@ -39,14 +34,14 @@ const useMenu = () => {
 
   useEffect(() => {
     setLoading(true)
-    if (data[0]?.product_category !== undefined) {
+    if (categories.length && products.length && !Object.keys(parsedProducts).length) {
       setParsedProducts(groupByCategory())
       setLoading(false)
     }
-  }, [data, categories, products])
+  }, [categories, products])
 
   useEffect(() => {
-    const { search } = window.location
+    const { search } = window?.location
     const searchParams = new URLSearchParams(search)
     const elementId = searchParams.get("element")
     if (!elementId) {
@@ -57,16 +52,7 @@ const useMenu = () => {
         setSelectedProduct(data.find((prod) => prod.id === elementId) || null)
       }
     }
-  }, [window.location.search, products, categories, parsedProducts])
-
-  useEffect(() => {
-    const favicon = document.querySelector("link[rel~='icon']")
-    ;(favicon as HTMLAnchorElement).href = Cookies.get("image") || ""
-    const titleTag = document.querySelector("title")
-    ;(titleTag as HTMLTitleElement).textContent = `${capitalizeWords(business || "")} - ${
-      selected ? selected.branch_name + " - Menú" : ""
-    }`
-  }, [selected])
+  }, [window ? window?.location?.search : null, products, categories, parsedProducts])
 
   useEffect(() => {
     const responsiveRootMargin =
@@ -127,11 +113,12 @@ const useMenu = () => {
     if (query) {
       return { " ": products }
     }
+    const withCategory = insertCategoryOnProduct()
     const parsedByCategory: Record<string, Product[]> = {}
-    if (products.some((item) => item.favorite)) {
+    if (withCategory.some((item) => item.favorite)) {
       parsedByCategory[FAV_LABEL] = []
     }
-    products.forEach((item) => {
+    withCategory.forEach((item) => {
       if (!item.product_category || !item.product_name) {
         return
       }
@@ -149,6 +136,17 @@ const useMenu = () => {
     })
     return reorderCategories(parsedByCategory)
   }
+
+
+  const insertCategoryOnProduct = (): Product[] => {
+    return products
+      .filter((prod) => prod.category_id && prod.product_name)
+      .map((prod) => ({
+        ...prod,
+        product_category: categories.find((cat) => cat.id === prod.category_id)!
+      }))
+  }
+
 
   const reorderCategories = (groupedCategories: Record<string, Product[]>) => {
     const reordered: Record<string, Product[]> = {}
@@ -189,7 +187,7 @@ const useMenu = () => {
         const headingRect = targetHeading.getBoundingClientRect()
         const offset = headingRect.top - mainRect.top + mainElement.scrollTop
         const goingUp = offset < mainElement.scrollTop
-        const mobile = window.innerWidth <= 950
+        const mobile = window?.innerWidth <= 950
         mainElement.scrollTo({
           top: mobile && goingUp ? offset - 50 : offset + 10,
           behavior: "smooth"
@@ -206,9 +204,9 @@ const useMenu = () => {
   }
 
   const handleProductSelectionReset = () => {
-    const url = new URL(window.location.href)
+    const url = new URL(window?.location.href)
     url.search = ""
-    window.history.pushState({}, "", url)
+    window?.history.pushState({}, "", url)
     setSelectedProduct(null)
   }
 

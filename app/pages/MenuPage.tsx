@@ -3,8 +3,11 @@ import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { authCookie, tenantCookie, timeStampCookie } from "~/utils/cookies.server";
 import { constants } from "~/config/constants";
-import { BranchOffice, Product, ProductCategory } from "~/@types";
+import { Product, ProductCategory } from "~/@types";
 import { Menu } from "~/components";
+import {  ClientOnly  }  from  "remix-utils/client-only" ;
+import { withBackButton } from "~/components/WithBackButton/WithBackButton";
+import { capitalizeWords } from "~/utils/capitalize";
 
 export const loader = async ({ params, request }: { params: Params<'branch'>, request: any }) => {
     const cookie = request.headers.get("Cookie");
@@ -73,6 +76,7 @@ export const loader = async ({ params, request }: { params: Params<'branch'>, re
             .sort((a, b) => a.category_name.localeCompare(b.category_name));
     };
 
+
     try {
         const branchData = await getBranches(branch || "");
         const branchId = branchData?.id || "";
@@ -81,6 +85,7 @@ export const loader = async ({ params, request }: { params: Params<'branch'>, re
             getProducts(branchId),
             getCategories()
         ]);
+
 
         return {
             products,
@@ -92,13 +97,11 @@ export const loader = async ({ params, request }: { params: Params<'branch'>, re
     }
 };
 
-export const meta: MetaFunction = () => {
-
-
+export const meta: MetaFunction = ({params}) => {
 
     return [
-        { title: "New Remix App" },
-        { name: "description", content: "Welcome to Remix!" },
+        { title: `${capitalizeWords(params.business || '')} - ${capitalizeWords(params.branch || '').replaceAll('-', ' ')} - Menú Digital` },
+        { name: "description", content: "Menú digital" },
     ];
 };
 
@@ -106,7 +109,9 @@ export default function Index() {
 
     const { products, categories } = useLoaderData<typeof loader>();
 
-    return <Menu categories={categories} products={products} />
+    return <ClientOnly fallback={<>---</>}>
+                { () =>  withBackButton(<Menu categories={categories} products={products} />)}
+            </ClientOnly>
 
 }
 
