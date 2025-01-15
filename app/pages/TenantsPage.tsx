@@ -4,32 +4,54 @@ import { useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { authCookie, timeStampCookie } from "~/utils/cookies.server";
 import { constants } from "~/config/constants";
+import { authorizeApp } from "~/utils/authorizeApp.server";
 
-export const loader = async ({ request } : {request: any}) => {
+export const loader = async ({ request } : {request: Request}) => {
   const cookie = request.headers.get("Cookie");
-  const token = await authCookie.parse(cookie);
-  const timestamp = await timeStampCookie.parse(cookie)
-
-  if (!token) {
-    return null
+  let mainToken = await authCookie.parse(cookie);
+  let mainTimestamp = await timeStampCookie.parse(cookie)
+  let cookiesToSet: string[] = [];
+  if(mainToken === null){
+    try{
+      const authResult =  await authorizeApp();
+      if(authResult?.token && authResult?.timestamp){
+        const {token, timestamp, cookies} = authResult;
+        mainToken = token;
+        mainTimestamp = timestamp;
+        cookiesToSet = cookies
+      }
+    }catch(e){
+      return
+    }
   }
   const data = await apiService.get(constants.API_BUSINESS, {
     headers: {
-      session: token,
-      timestamp: timestamp,
+      session: mainToken,
+      timestamp: mainTimestamp,
       'Content-Type': 'application/json'
     },
   });
+ 
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: {
+      "Set-Cookie": cookiesToSet.join(', ')
+    }})
+}
 
-  return data;
-};
+
 
 export const meta: MetaFunction = () => {
 
 
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Menú Digital" },
+    { name: "description", content: "Menú y Pickup digital" },
+    {
+      tagName: "link",
+      rel: "icon",
+      href: "https://gastronomix-test.infosis.tech/favicon.ico",
+    },
   ];
 };
 
@@ -38,7 +60,7 @@ export default function Index() {
 
   const tenants = useLoaderData<typeof loader>();
 
-  return <TenantSelector data={tenants}/>
+  return <TenantSelector data={JSON.parse(tenants)}/>
   
 }
 

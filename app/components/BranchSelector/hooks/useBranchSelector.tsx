@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react"
 import { BranchOffice } from "../../../@types"
 import { useNavigate, useParams } from "react-router-dom"
-// import apiService from "../../../config/API"
-// import { constants } from "../../../config/constants"
-// import { useAppSelector } from "../../../redux/hooks"
 import { capitalizeWords } from "../../../utils/capitalize"
-// import Cookies from "js-cookie"
 
 const useBranchSelector = (data: BranchOffice[]) => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -14,16 +10,6 @@ const useBranchSelector = (data: BranchOffice[]) => {
   const [query, setQuery] = useState<string>("")
   const navigate = useNavigate()
   const { business } = useParams()
-
-  useEffect(() => {
-    if (business) {
-      //const favicon = document.querySelector("link[rel~='icon']")
-      ;
-      // (favicon as HTMLAnchorElement).href = Cookies.get("image") || ""
-      const titleTag = document.querySelector("title")
-      ;(titleTag as HTMLTitleElement).textContent = `${capitalizeWords(business)}`
-    }
-  }, [business])
 
   useEffect(() => {
     if(data?.length){

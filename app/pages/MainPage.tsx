@@ -4,7 +4,8 @@ import { getAccessToken } from "~/utils/getToken.server";
 import { Spinner } from "~/components";
 
 export const loader: LoaderFunction = async ({request}) => {
-  const token = await getAccessToken(request); 
+  
+  const token = await getAccessToken(request.headers.get('Cookie') || ''); 
   if (token) {
     const tokenHeader = await authCookie.serialize(JSON.stringify(token.access_token));
     const timestampHeader = await timeStampCookie.serialize(String(Date.now()));  

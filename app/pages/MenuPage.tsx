@@ -1,32 +1,26 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
-import { authCookie, tenantCookie, timeStampCookie } from "~/utils/cookies.server";
 import { constants } from "~/config/constants";
 import { Product, ProductCategory } from "~/@types";
 import { Menu } from "~/components";
 import {  ClientOnly  }  from  "remix-utils/client-only" ;
 import { withBackButton } from "~/components/WithBackButton/WithBackButton";
 import { capitalizeWords } from "~/utils/capitalize";
+import { getAuthAndTenant } from "~/utils/getAuthAndTenant";
 
-export const loader = async ({ params, request }: { params: Params<'branch'>, request: any }) => {
-    const cookie = request.headers.get("Cookie");
-    const token = await authCookie.parse(cookie);
-    const timestamp = await timeStampCookie.parse(cookie);
-    const tenant = await tenantCookie.parse(cookie);
-    const { branch } = params;
+export const loader = async ({ params, request }: { params: Params<any>, request: any }) => {
+    const { branch, business } = params;
+    const {mainTenant, mainTimestamp, cookiesToSend, tenantImage, mainToken} = await getAuthAndTenant(request, business||'') 
 
-    if (!token) {
-        throw new Response("Unauthorized", { status: 401 });
-    }
 
     const getBranches = async (branch: string) => {
         try {
             const res = await apiService.get<any>(`${constants.API_BRANCHES}/${branch}`, {
                 headers: {
-                    tenant,
-                    session: token,
-                    timestamp,
+                    tenant: mainTenant,
+                    session: mainToken,
+                    timestamp: mainTimestamp,
                     'Content-Type': 'application/json'
                 }
             });
@@ -41,9 +35,9 @@ export const loader = async ({ params, request }: { params: Params<'branch'>, re
         try {
             const res = await apiService.get<Product[]>(constants.API_PRODUCTS, {
                 headers: { branchId,  
-                    tenant,
-                    session: token,
-                    timestamp,
+                    tenant: mainTenant,
+                    session: mainToken,
+                    timestamp: mainTimestamp,
                     'Content-Type': 'application/json'}
             });
             return res;
@@ -57,9 +51,9 @@ export const loader = async ({ params, request }: { params: Params<'branch'>, re
         try {
             const res = await apiService.get<ProductCategory[]>(constants.API_CATEGORIES, {
                 headers: {
-                    tenant,
-                    session: token,
-                    timestamp,
+                    tenant: mainTenant,
+                    session: mainToken,
+                    timestamp: mainTimestamp,
                     'Content-Type': 'application/json'
                 }
             });

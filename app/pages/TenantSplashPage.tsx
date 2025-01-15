@@ -1,39 +1,43 @@
 import type { MetaFunction } from "@remix-run/node";
 import { BusinessSplash } from "~/components";
-import apiService from "~/config/API";
-import { Tenant } from "~/@types";
 import { useLoaderData, type Params } from "@remix-run/react";
-import { constants } from "~/config/constants";
-import { authCookie, imageCookie, tenantCookie, timeStampCookie } from "~/utils/cookies.server";
+import { authCookie, timeStampCookie } from "~/utils/cookies.server";
+import { capitalizeWords } from "~/utils/capitalize";
+import { authorizeApp } from "~/utils/authorizeApp.server";
+import { getTenant } from "~/utils/getTenant.server";
 
 export const loader = async({params, request}:{params: Params<'business'>, request: Request}) => {
   const {business} = params;
   const cookie = request.headers.get("Cookie");
-  const token = await authCookie.parse(cookie);
-  const timestamp = await timeStampCookie.parse(cookie)
+  let mainToken = await authCookie.parse(cookie);
+  let mainTimestamp = await timeStampCookie.parse(cookie)
+  let cookiesToSend : string[] = [];
   if (!business) {
     throw new Response("Business parameter is missing", { status: 400 });
   }
+  if(mainToken === null){
+    try{
+      const authResult =  await authorizeApp();
+      if(authResult?.token && authResult?.timestamp){
+        const {token, timestamp, cookies} = authResult;
+        mainToken = token;
+        mainTimestamp = timestamp;
+        cookiesToSend = cookies
+      }
+    }catch(e){
+      return
+    }
+  }
     try {
-      const res = await apiService.get<Tenant>(constants.API_BUSINESS, {
-        headers: {
-          alias : business,
-          session: token,
-          timestamp: timestamp,
-          'Content-Type': 'application/json'
-        }
-      })
-
-      const imageHeader = await imageCookie.serialize(res.image)
-      const tenantHeader = await tenantCookie.serialize(res.id)
-
+      const {tenant, cookies} = await getTenant(business, mainToken, mainTimestamp)
+      cookiesToSend = [...cookiesToSend, ...cookies || []]
       return new Response(
-        JSON.stringify(res),
+        JSON.stringify(tenant),
         {
           status: 200,
           headers: {
             "Content-Type": "application/json",
-            "Set-Cookie": [imageHeader, tenantHeader].join(', ')
+            "Set-Cookie": cookiesToSend.join(', ')
           },
         }
       );
@@ -50,9 +54,9 @@ export const meta: MetaFunction = ({ data }: { data: any }) => {
   }
 
   return [
-    { title: data.alias }, 
-    { rel: "icon", href: data.image }, 
-    { name: "description", content: `Welcome to ${data.alias}!` }, 
+    { title: capitalizeWords(data.alias) }, 
+    { tagName: 'link', rel: "icon", href: data.image }, 
+    { name: "description", content: `Menú y Pickup digital - ${data.alias}` }, 
   ];
 };
 

@@ -6,9 +6,9 @@ interface AuthResponse {
     access_token: string
   }
 
-export const getAccessToken = async (request: Request) => {
-  const cookiesHeader = request.headers.get("Cookie");
-  const token = await getCookie(cookiesHeader, authCookie);
+export const getAccessToken = async (cookiesHeader?: string) => {
+  const token = await getCookie(cookiesHeader || "", authCookie);
+
     try {
       if(!token){
         const res = await apiService.get<AuthResponse>(constants.API_AUTH, {});

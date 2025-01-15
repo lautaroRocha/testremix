@@ -10,7 +10,7 @@ import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
 import { useTranslation } from "react-i18next"
 
-const BranchSelector = ({data}: {data: BranchOffice[]}) => {
+const BranchSelector = ({data, image}: {data: BranchOffice[], image: string}) => {
   const {handleSearch, loading, confirmBranch, branches } = useBranchSelector(data)
 
   const { t } = useTranslation("branchSelector")
@@ -18,7 +18,7 @@ const BranchSelector = ({data}: {data: BranchOffice[]}) => {
   return (
     <div className={style.branchSelector}>
       <header>
-        <Logo />
+        <Logo imageUrl={image} />
         {t("title")}
       </header>
       <Searchbar handleSearch={handleSearch} placeholder={t("searchPlaceholder")} />

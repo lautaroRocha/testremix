@@ -1,26 +1,29 @@
 import type { MetaFunction } from "@remix-run/node";
 import { BranchSelector } from "~/components";
-import { useLoaderData } from "@remix-run/react";
+import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { BranchOffice } from "~/@types";
 import { constants } from "~/config/constants";
-import { authCookie, tenantCookie, timeStampCookie } from "~/utils/cookies.server";
+import { capitalizeWords } from "~/utils/capitalize";
+import { getAuthAndTenant } from "~/utils/getAuthAndTenant";
 
-export const loader = async( {request}:{request: Request} ) => {
-  const cookie = request.headers.get("Cookie");
-  const token = await authCookie.parse(cookie);
-  const timestamp = await timeStampCookie.parse(cookie);
-  const tenant = await tenantCookie.parse(cookie);
+export const loader = async( {request, params}:{request: Request, params:Params<'business'>} ) => {
+  const {business} = params;
+  const {mainTenant, mainTimestamp, cookiesToSend, tenantImage, mainToken} = await getAuthAndTenant(request, business||'') 
     try {
       const res = await apiService.get<BranchOffice[]>(constants.API_BRANCHES, {
         headers: {
-          tenant : tenant,
-          session: token,
-          timestamp: timestamp,
+          tenant : mainTenant,
+          session: mainToken,
+          timestamp: mainTimestamp,
           'Content-Type': 'application/json'
         }
       })
-      return res
+      return new Response(JSON.stringify({data: res, alias: business, image: tenantImage }), {
+        headers: {
+          'Set-Cookie': cookiesToSend.join(', ')
+        }
+      })
     } catch (e) {
       console.error(e)
       return null
@@ -28,9 +31,10 @@ export const loader = async( {request}:{request: Request} ) => {
 }
 
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({data}: {data:any}) => {
   return [
-    { title: "New Remix App" },
+    { title: capitalizeWords(JSON.parse(data).alias)},
+    { tagName: 'link', rel: "icon", href: JSON.parse(data).image }, 
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
@@ -41,8 +45,10 @@ export default function BusinessSeleccionarSucursal() {
 
   if(!branches)return 
 
+  const {data, image} = JSON.parse(branches)
+
   return (
-    <BranchSelector data={branches} />
+    <BranchSelector data={data} image={image} />
   );
 }
 

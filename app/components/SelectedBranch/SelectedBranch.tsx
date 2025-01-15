@@ -4,14 +4,13 @@ import pickupIcon from "../../assets/pickup.svg"
 import arrowIcon from "../../assets/brancharrow.svg"
 import useSelectedBranch from "./hooks/useSelectedBranch"
 import { BranchBadge } from ".."
-import { useAppSelector } from "../../redux/hooks"
 import { useTranslation } from "react-i18next"
 import { BranchOffice } from "~/@types"
+import { ClientOnly } from "remix-utils/client-only"
 
-const SelectedBranch = ({data}: {data: BranchOffice}) => {
+const SelectedBranch = ({data, image}: {data: BranchOffice, image: string}) => {
   const { selectedBranch, loading, goToMenu, goToPickup } = useSelectedBranch(data)
 
-  const { image } = useAppSelector((state) => state.tenant)
 
   const { t } = useTranslation("selectedBranch")
 
@@ -22,7 +21,9 @@ const SelectedBranch = ({data}: {data: BranchOffice}) => {
           <img src={image} alt="" draggable={false} />
         </figure>
         <header>
-          <BranchBadge />
+          <ClientOnly>
+           { ()=><BranchBadge />}
+          </ClientOnly>
         </header>
         <main className={!loading ? style.animateMain : ""}>
           <div onClick={goToMenu}>

@@ -16,7 +16,7 @@ export const authCookie = createCookie('auth_token', {
     path: '/'
   })
 
-  export const imageCookie = createCookie('timestamp', {
+  export const imageCookie = createCookie('image', {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', 
     maxAge: 60 * 60 * 24 * 7,
