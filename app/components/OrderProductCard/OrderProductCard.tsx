@@ -1,4 +1,4 @@
-import { Product } from "../../@types"
+import { CurrencyISO, Product } from "../../@types"
 import { numberFormat } from "../../utils/numberFormat"
 import style from "./orderProductCard.module.css"
 import editIcon from "../../assets/edit.svg"
@@ -13,15 +13,18 @@ export interface OrderProductCardProps {
   product: Product
   quantity: number
   idx: number
+  currencyCode?: CurrencyISO
 }
 
-const OrderProductCard = ({ product, quantity, idx }: OrderProductCardProps) => {
+const OrderProductCard = ({ product, quantity, idx, currencyCode }: OrderProductCardProps) => {
   const { product_name, price, image, id } = product
 
   const { selected } = useAppSelector((state) => state.branch)
 
   const { editProductQuantity, removeProductFromOrder, selectProductFromOrder } =
     useContext(OrderContext)
+
+  const currency_code = selected?.currency_code ?? currencyCode
 
   return (
     <div className={style.orderProductCard}>
@@ -61,7 +64,7 @@ const OrderProductCard = ({ product, quantity, idx }: OrderProductCardProps) => 
           <img src={deleteIcon} alt="" draggable={false} />
         </button>
       </div>
-      <span>{currencyFormat(numberFormat.format(price), selected.currency_code)}</span>
+      <span>{currencyFormat(numberFormat.format(price), currency_code)}</span>
     </div>
   )
 }

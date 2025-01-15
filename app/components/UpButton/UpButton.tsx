@@ -2,7 +2,7 @@ import style from "./UpButton.module.css"
 import arrowIcon from "../../assets/brancharrow.svg"
 import { useEffect, useRef, useState } from "react"
 
-const UpButton = () => {
+const UpButton = ({ right, bottom }: { right?: string; bottom?: string }) => {
   const upButtonRef = useRef<HTMLButtonElement>(null)
   const [visible, setVisible] = useState(false)
   const scrollThreshold = 300
@@ -38,6 +38,10 @@ const UpButton = () => {
       className={`${style.upButton} ${visible ? style.visible : ""}`}
       ref={upButtonRef}
       onClick={goUp}
+      style={{
+        right: right ? right : "",
+        bottom: bottom ? bottom : ""
+      }}
     >
       <img src={arrowIcon} alt="up-btn-icon" draggable={false} />
     </button>

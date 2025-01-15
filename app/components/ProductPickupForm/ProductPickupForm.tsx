@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Product } from "../../@types"
+import { BranchOffice, Product } from "../../@types"
 import style from "./productPickupForm.module.css"
 import addIcon from "../../assets/add.svg"
 import { numberFormat } from "../../utils/numberFormat"
@@ -11,9 +11,10 @@ import { currencyFormat } from "../../utils/currencyFormat"
 export interface ProductPickupFormProps {
   product: Product
   onSubmit: () => void
+  branch: BranchOffice
 }
 
-const ProductPickupForm = ({ product, onSubmit }: ProductPickupFormProps) => {
+const ProductPickupForm = ({ product, onSubmit, branch }: ProductPickupFormProps) => {
   const [quantity, setQuantity] = useState<number>(1)
   const [comment, setComment] = useState<string>("")
 
@@ -50,6 +51,8 @@ const ProductPickupForm = ({ product, onSubmit }: ProductPickupFormProps) => {
 
   const isOrder = window.location.pathname.includes("mi-orden")
 
+  const {currency_code} = selected ?? branch
+
   return (
     <div className={style.productPickupForm}>
       <label htmlFor="comment">
@@ -76,7 +79,7 @@ const ProductPickupForm = ({ product, onSubmit }: ProductPickupFormProps) => {
             +
           </button>
         </div>
-        <span>{currencyFormat(numberFormat.format(product.price), selected.currency_code)}</span>
+        <span>{currencyFormat(numberFormat.format(product.price), currency_code)}</span>
       </div>
       <button type="button" id="pickup-btn-addToOrder" onClick={addToOrder}>
         {isOrder ? null : <img src={addIcon} draggable={false} />}

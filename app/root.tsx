@@ -10,7 +10,8 @@ import type { LinksFunction } from "@remix-run/node";
 import "./tailwind.css";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-import { TenantSelector } from "./components";
+import { Dispatch, SetStateAction, createContext } from "react";
+import { PickupOrder, PickupOrderProduct } from "./hooks/useOrder";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,7 +30,28 @@ export const links: LinksFunction = () => [
   }
 ];
 
+export const PickupContext = createContext({ isPickup: false })
+interface OrderContext {
+  order: PickupOrder
+  setOrder: Dispatch<SetStateAction<PickupOrder>>
+  isProductInOrder: (id: string) => boolean
+  amountOfProductInOrder: (id: string) => number
+  orderFullPrice: () => string
+  productCommentsInOrder: (id: string) => string
+  editProductQuantity: (id: string, quantity: number) => void
+  removeProductFromOrder: (id: string) => void
+  orderItemsAmount: () => number
+  resetOrder: () => void
+  selectProductFromOrder: (param: string | null) => void
+  resetSelection: () => void
+  selectedFromOrder: PickupOrderProduct | null
+}
+
+export const OrderContext = createContext({} as OrderContext)
+
 export function Layout({ children }: { children: React.ReactNode }) {
+
+  
   return (
     <Provider store={store}>
       <html lang="en">

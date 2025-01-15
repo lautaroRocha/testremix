@@ -1,21 +1,7 @@
-import { Route, Routes } from "react-router-dom"
-import {
-  BranchSelector,
-  BusinessSplash,
-  Menu,
-  OrderDetail,
-  PaymentMethods,
-  Pickup,
-  SelectedBranch,
-  CheckoutOrder,
-  TenantSelector,
-  WithProductsAndCategories
-} from "./components"
-import { withBackButton } from "./components/WithBackButton/WithBackButton"
+import { Routes } from "react-router-dom"
 import { Dispatch, SetStateAction, createContext } from "react"
 import useIsPickup from "./hooks/useIsPickup"
 import useOrder, { PickupOrder, PickupOrderProduct } from "./hooks/useOrder"
-// import useAuth from "./hooks/useAuth"
 import { useWindowSize } from "./hooks/useWindowSize"
 import "./i18n/i18n"
 import { constants } from "./config/constants"
@@ -32,7 +18,7 @@ interface OrderContext {
   removeProductFromOrder: (id: string) => void
   orderItemsAmount: () => number
   resetOrder: () => void
-  selectProductFromOrder: (param: string) => void
+  selectProductFromOrder: (param: string | null) => void
   resetSelection: () => void
   selectedFromOrder: PickupOrderProduct | null
 }
@@ -44,7 +30,6 @@ function App() {
   const contextValues = useOrder()
   const { width } = useWindowSize()
   console.log(constants)
-  // useAuth()
 
   return (
     <PickupContext.Provider
@@ -54,7 +39,7 @@ function App() {
     >
       <OrderContext.Provider value={{ ...contextValues }}>
         <Routes>
-          {/* <Route path="/" element={<TenantSelector />} /> */}
+          {/* <Route path="/" element={<TenantSelector />} />
           <Route path="/:business" element={<BusinessSplash />}>
             <Route path="seleccionar-sucursal" element={<BranchSelector />} />
             <Route path=":branch">
@@ -70,7 +55,7 @@ function App() {
                 <Route path="mi-orden/checkout/:id" element={<CheckoutOrder />} />
               </Route>
             </Route>
-          </Route>
+          </Route> */}
         </Routes>
       </OrderContext.Provider>
     </PickupContext.Provider>

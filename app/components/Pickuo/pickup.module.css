@@ -31,6 +31,11 @@
     position: relative;
     height: 171px;
     top: 0;
+    transition: height .5s ease-in-out;
+}
+
+.pickup header.small {
+    height: 100px;
 }
 
 .pickup header .headerLeft{
@@ -97,8 +102,14 @@
     position: absolute;
     top: 113px;
     width: 83dvw;
+    transition: top .5s ease-in-out;
 }
-
+.pickup > header > section > figure{
+    transition: opacity .5s ease-in-out;
+}
+.pickup > header.small > section > figure{
+    opacity: 0;
+}
 
 
 .pickup header + div input:focus + img{
@@ -121,14 +132,24 @@
     left: 1ch;
     right: 0;
     text-align: center;
+    transition: opacity .5s ease-in-out;
+    opacity: 1;
 }
 
+.pickup > header.small > section > figure + div{
+    opacity: 0;
+}
+
+.pickup header.small+div {
+    top: 45px;
+}
 
 @media ( min-width:950px){
     .pickup header {
         padding: 1rem;
         background-color: var(--grey-5);
         height: calc(171px + 2rem);
+        transition: height .5s ease-in-out;
     }
     .pickup header .headerLeft{
         width: 15%;
@@ -148,6 +169,7 @@
     .pickup header+div {
         width: 71%;
         top: 133px;
+        transition: top .5s ease-in-out;
     }
     .pickup header + div input:focus + img{
         transform: translateX(calc(-68dvw + 2ch));
@@ -159,14 +181,33 @@
         text-align: center;
     }
     .pickup > header > section > figure{
-        width: 7.5rem;
-        margin-top: .5rem;
+        width: 6.5rem;
+        margin-top: 1.5rem;
+        transition: all .5s ease-in-out;
     }
     .pickup > header > section > figure + div{
         position: absolute;
         left: 0;
         right: 0;
         margin-bottom: 1.5rem;
+        opacity: 1;
+        transition: opacity .5s ease-in-out;
+    }
+
+    .pickup > header.small {
+        height: calc(106px + 2rem);
+    }
+    .pickup > header.small > section > figure{
+        width: 4rem;
+        margin-top: 0px;
+        margin-left: 1rem;
+        opacity: 1;
+    }
+    .pickup > header.small > section > figure + div{
+        opacity: 0;
+    }
+    .pickup header.small+div{
+        top: 66px;
     }
 
 }

@@ -29,7 +29,7 @@ const ProductDetail = ({ product, reset, branch }: ProductDetailProps) => {
 
   const {currency_code} = branch ?? selected
 
-  const { isPickup } = useContext(PickupContext)
+  const isPickup = window.location.pathname.includes("pickup")
 
   const { t } = useTranslation(["productDetail", "categorySection"])
 
@@ -154,7 +154,7 @@ const ProductDetail = ({ product, reset, branch }: ProductDetailProps) => {
           <h3>{product?.product_name}</h3>
           <p>{product?.description}</p>
           {(isPickup || isOrder) && product ? (
-            <ProductPickupForm product={product} onSubmit={handleBack} />
+            <ProductPickupForm product={product} onSubmit={handleBack} branch={branch!} />
           ) : (
             <span>
               {currencyFormat(

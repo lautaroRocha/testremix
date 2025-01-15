@@ -13,8 +13,9 @@ import { useWindowSize } from "../../hooks/useWindowSize"
 import { useTranslation } from "react-i18next"
 import { useAppSelector } from "../../redux/hooks"
 import { currencyFormat } from "../../utils/currencyFormat"
+import { BranchOffice } from "~/@types"
 
-const OrderBrief = () => {
+const OrderBrief = ({branchData}:{branchData: BranchOffice}) => {
   const { orderFullPrice, order } = useContext(OrderContext)
 
   const navigate = useNavigate()
@@ -34,15 +35,17 @@ const OrderBrief = () => {
 
   const goToOrder = () => navigate(`/${business}/${branch}/mi-orden`)
 
+  const {currency_code} = selected ?? branchData
+
   if (width && width >= 950) {
-    return <DesktopOrderBrief goToOrder={goToOrder} />
+    return <DesktopOrderBrief goToOrder={goToOrder} branchData={branchData}/>
   }
 
   return (
     <div className={style.orderBrief}>
       <header>
         <span>{t("totalAmount")}</span>
-        <span>{currencyFormat(orderFullPrice(), selected.currency_code)}</span>
+        <span>{currencyFormat(orderFullPrice(), currency_code)}</span>
       </header>
       {IS_PAYMENT_METHODS ? (
         <div className={style.paymentMethodBrief}>
@@ -84,7 +87,7 @@ const OrderBrief = () => {
 
 export default OrderBrief
 
-const DesktopOrderBrief = ({ goToOrder }: { goToOrder: () => void }) => {
+const DesktopOrderBrief = ({ goToOrder, branchData}: { goToOrder: () => void, branchData: BranchOffice }) => {
   const { order, orderFullPrice, resetOrder } = useContext(OrderContext)
   const { selected } = useAppSelector((state) => state.branch)
 
@@ -93,6 +96,9 @@ const DesktopOrderBrief = ({ goToOrder }: { goToOrder: () => void }) => {
   )
 
   const { t } = useTranslation("orderBrief")
+
+  const {currency_code} = selected ?? branchData
+
 
   return (
     <div
@@ -118,13 +124,14 @@ const DesktopOrderBrief = ({ goToOrder }: { goToOrder: () => void }) => {
             product={or.product}
             quantity={or.quantity}
             idx={idx}
+            currencyCode={currency_code}
           />
         ))}
       </div>
       <footer>
         <div>
           <span>{t("totalAmount")}</span>
-          <span>{currencyFormat(orderFullPrice(), selected.currency_code)}</span>
+          <span>{currencyFormat(orderFullPrice(), currency_code)}</span>
         </div>
         <div>
           <button onClick={resetOrder} id="orderBrief-reset-btn">

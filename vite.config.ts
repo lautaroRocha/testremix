@@ -19,6 +19,7 @@ export default defineConfig({
           route(":business/seleccionar-sucursal", "pages/SelectBranchPage.tsx");
           route(":business/:branch", "pages/SelectedBranchPage.tsx");
           route(":business/:branch/menu", "pages/MenuPage.tsx");
+          route(":business/:branch/pickup", "pages/PickupPage.tsx");
           });
       },
       future: {

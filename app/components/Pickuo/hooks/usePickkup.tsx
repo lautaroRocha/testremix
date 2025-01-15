@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Product } from "../../../@types"
-import { CategoriesContext, ProductsContext } from "../../WithProductsAndCategories/context"
+import { Product, ProductCategory } from "../../../@types"
 import { useAppSelector } from "../../../redux/hooks"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "../../../hooks/useWindowSize"
 import { capitalizeWords } from "../../../utils/capitalize"
 import Cookies from "js-cookie"
+import { OrderContext } from "../../../App"
 
-const usePickup = () => {
+const usePickup = (data: Product[], categories: ProductCategory[]) => {
   const { business } = useParams()
 
-  const { data } = useContext(ProductsContext)
-  const { categories } = useContext(CategoriesContext)
+  const { selectProductFromOrder } = useContext(OrderContext)
 
   const { selected } = useAppSelector((state) => state.branch)
 
@@ -60,15 +59,6 @@ const usePickup = () => {
       }
     }
   }, [window.location.search, products, categories, parsedProducts])
-
-  useEffect(() => {
-    const favicon = document.querySelector("link[rel~='icon']")
-    ;(favicon as HTMLAnchorElement).href = Cookies.get("image") || ""
-    const titleTag = document.querySelector("title")
-    ;(titleTag as HTMLTitleElement).textContent = `${capitalizeWords(business || "")} - ${
-      selected ? selected.branch_name + " - Menú" : ""
-    }`
-  }, [selected])
 
   useEffect(() => {
     const responsiveRootMargin =
@@ -204,7 +194,9 @@ const usePickup = () => {
 
   const handleProductSelection = (param: Product) => {
     setSelectedProduct(param)
-    navigate(`?element=${param.id}`)
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('element', param.id);
+    window.history.replaceState({}, '', currentUrl.toString());
   }
 
   const handleProductSelectionReset = () => {
@@ -212,6 +204,7 @@ const usePickup = () => {
     url.search = ""
     window.history.pushState({}, "", url)
     setSelectedProduct(null)
+    selectProductFromOrder(null)
   }
 
   return {
