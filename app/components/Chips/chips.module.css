@@ -26,6 +26,7 @@
     right: 0;
     top: 175px; /*header height*/
     height: 2rem;
+    transition: top .5s ease-in-out;
 }
 
 .chips::-webkit-scrollbar{
@@ -102,6 +103,10 @@
     background: linear-gradient(-180deg, var(--grey-5) 80%, transparent 100%);
 }
 
+.chips.small::after{
+    top: 106px;
+}
+
 
 @media (min-width: 950px){
     .chips{
@@ -125,6 +130,10 @@
 
     .chips::after{
         top: calc(175px + 2rem);;
+    }
+
+    .chips.small::after{
+        top: calc(106px + 2rem);;
     }
 
 

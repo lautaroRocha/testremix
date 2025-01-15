@@ -10,9 +10,10 @@ export interface ChipsProps {
   data: OptionWithIcon[]
   selected: string
   select: (param: string) => void
+  smallHeader: boolean
 }
 
-const Chips = ({ data, selected, select }: ChipsProps) => {
+const Chips = ({ data, selected, select, smallHeader }: ChipsProps) => {
   const isSelected = (param: string) => selected === param
 
   const { isPickup } = useContext(PickupContext)
@@ -66,8 +67,13 @@ const Chips = ({ data, selected, select }: ChipsProps) => {
 
   return (
     <>
-      <div className={`${style.chips} ${isPickup ? style.pickup : ""}`} ref={containerRef}>
-        {data.map((op) => {
+      <div
+        className={`${style.chips} ${isPickup ? style.pickup : ""} ${
+          smallHeader ? style.small : ""
+        }`}
+        ref={containerRef}
+      >        
+      {data.map((op) => {
           return (
             <span
               ref={isSelected(op.label) ? selectedChipRef : null}

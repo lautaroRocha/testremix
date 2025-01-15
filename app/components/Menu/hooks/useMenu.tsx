@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { Product, ProductCategory } from "../../../@types"
 import { useAppSelector } from "../../../redux/hooks"
 import { useTranslation } from "react-i18next"
@@ -21,7 +21,7 @@ const useMenu = (data: Product[], categories: ProductCategory[]) => {
   const FAV_LABEL = t("favLabel")
 
   const navigate = useNavigate()
-
+  const [_searchParams, setSearchParams] = useSearchParams()
   const { width } = useWindowSize()
 
   useEffect(() => {
@@ -200,7 +200,9 @@ const useMenu = (data: Product[], categories: ProductCategory[]) => {
 
   const handleProductSelection = (param: Product) => {
     setSelectedProduct(param)
-    navigate(`?element=${param.id}`)
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('element', param.id);
+    window.history.replaceState({}, '', currentUrl.toString());
   }
 
   const handleProductSelectionReset = () => {

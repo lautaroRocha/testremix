@@ -3,7 +3,7 @@ import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { constants } from "~/config/constants";
 import { Product, ProductCategory } from "~/@types";
-import { Menu } from "~/components";
+import { Menu, Spinner } from "~/components";
 import {  ClientOnly  }  from  "remix-utils/client-only" ;
 import { withBackButton } from "~/components/WithBackButton/WithBackButton";
 import { capitalizeWords } from "~/utils/capitalize";
@@ -80,31 +80,55 @@ export const loader = async ({ params, request }: { params: Params<any>, request
             getCategories()
         ]);
 
+        const insertCategoryOnProduct = (): Product[] => {
+            return products
+              .filter((prod) => prod.category_id && prod.product_name)
+              .map((prod) => ({
+                ...prod,
+                product_category: categories.find((cat) => cat.id === prod.category_id)!
+              }))
+          }
 
-        return {
-            products,
-            categories: categoriesWithProducts(categories, products)
-        };
+        return new Response(
+            JSON.stringify( {
+                products: insertCategoryOnProduct(),
+                categories: categoriesWithProducts(categories, products),
+                tenantImage,
+                branchData
+            }), {
+                headers: {
+                    'Set-Cookie': cookiesToSend.join(', ')
+                }
+            }
+        )
+        
+        
+       ;
     } catch (error) {
         console.error("Loader error:", error);
         throw new Response("Failed to load data", { status: 500 });
     }
 };
 
-export const meta: MetaFunction = ({params}) => {
+export const meta: MetaFunction = ({params, data}) => {
+
+    const {tenantImage} = JSON.parse(data as string)
 
     return [
         { title: `${capitalizeWords(params.business || '')} - ${capitalizeWords(params.branch || '').replaceAll('-', ' ')} - Menú Digital` },
         { name: "description", content: "Menú digital" },
+        { tagName: 'link', rel: "icon", href: tenantImage }, 
+
     ];
 };
 
 export default function Index() {
 
-    const { products, categories } = useLoaderData<typeof loader>();
+    const data = useLoaderData<typeof loader>();
+    const { products, categories, tenantImage, branchData } = JSON.parse(data)
 
-    return <ClientOnly fallback={<>---</>}>
-                { () =>  withBackButton(<Menu categories={categories} products={products} />)}
+    return <ClientOnly fallback={<Spinner />}>
+                { () =>  withBackButton(<Menu categories={categories} products={products} image={tenantImage} branch={branchData}/>, true, true)}
             </ClientOnly>
 
 }

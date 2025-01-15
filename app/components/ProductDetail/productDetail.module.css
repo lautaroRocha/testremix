@@ -135,11 +135,13 @@
     font-weight: 700;
     font-size: 22px;
     line-height: 23px;
+    white-space: nowrap;
 }
 .productDetail > article > div > p{
     color: var(--grey-60);
     font-weight: 400;
     font-size: 16px;
+    height: 4ch;
 }
 
 
@@ -252,10 +254,10 @@
         top: 30%;
     }
     .productDetail:not(.pickup) > article > div {
-        top: 50%;
+        top: 65%;
     }
-    .productDetail:not(.pickup) > article > img, .productDetail.pickup > article > img {
-        height: 40%;
+    .productDetail:not(.pickup) > article > img {
+        height: 57%;
     }
     .productDetail.pickup > article > img{
         height: 20%;
@@ -269,7 +271,14 @@
     }
 
     .productDetail.pickup > article{
-        height: 80%;
+        height: 95%;
+    }
+    .productDetail.pickup > article > div{
+        top: 50%;
+    }
+    .productDetail.pickup > article >img{
+        height: 43%;
+        object-fit: initial;
     }
 }
 

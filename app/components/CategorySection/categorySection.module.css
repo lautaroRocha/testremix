@@ -30,7 +30,6 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-
     height: fit-content;
     overflow: scroll;
     position: relative;
@@ -105,7 +104,7 @@
 
 @media(min-width:950px){
     .categorySection {
-        margin-top: 1rem;         
+        margin-top: 1rem;       
     }
 
     .categorySection > section.starGallery{
@@ -115,8 +114,8 @@
     }
 
     .categorySection > section.starGallery>div {
-        min-width: 25%;
-        max-width: 25%;
+        min-width: unset;
+        max-width: 400px;
         cursor: pointer;
         grid-template-columns: 2fr 4fr;
         cursor: pointer;
@@ -128,12 +127,13 @@
     .categorySection > section {
         justify-content: start;
         display: grid;
-        grid-template-columns: repeat( auto-fit, minmax(261px, 1fr) );
+        grid-template-columns: repeat(auto-fill, minmax(261px, 1fr));
+        grid-auto-rows: 30dvh;
     }
 
     .categorySection > section > div{
         width: 100%;
-        max-height: 205px;
+        max-height: 100%;
         cursor: pointer;
         gap: 0;
         max-width: 350px;
@@ -149,13 +149,36 @@
 }
 
 @media (min-height: 1900px){
+    .categorySection > section{
+        grid-template-columns: repeat(auto-fill, minmax(202px, 1fr));
+        grid-auto-rows: 18dvh;
+    }
+    .categorySection > section.starGallery>div{
+        grid-template-rows: repeat(6, 1fr);
+    }
+    .categorySection > section.starGallery>div>h3{
+        padding-top: 0px;
+    } 
     .categorySection > section.starGallery {
         height: 10rem;
     }
     .categorySection > section.starGallery > div{
         height: 100%;
-        width: 35%;
         max-width: unset;
+        min-width: 45%;
+    }
+    .categorySection > section.starGallery>div>h3{
+        overflow: visible;
+        white-space: nowrap;
+    }
+    .categorySection > section.starGallery>div>span:first-of-type {
+        grid-row: 1/8 !important; 
+    }
+    .categorySection > section.starGallery>div>p {
+        grid-row: 2/4 !important;  
+        }
+    .categorySection > section.starGallery>div>span:last-of-type {
+        grid-row: 7 !important; 
     }
 }
 

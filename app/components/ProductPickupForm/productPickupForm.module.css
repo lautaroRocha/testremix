@@ -49,7 +49,7 @@
 }
 .productPickupFormControls > div > button{
     border: 1px solid var(--grey-10);
-    width: 3rem;
+    width:3rem;
     aspect-ratio: 1/1;
     border-radius: 8.3px;
     background-color: transparent;
@@ -96,6 +96,24 @@
 
 @media(min-width:950px){
     .productPickupForm{ 
+        height: 35%;
+    }
+    .productPickupFormControls > div > button{
+        width: clamp(1rem, 2vw, 3rem);
+        font-size: clamp(1rem, 2vw, 2rem);
+    }
+
+    .productPickupFormControls > div > span{
+        font-size: clamp(10px, 1vw, 20px);
+    }
+    .productPickupFormControls > span{
+        font-size: clamp(10px, 1.5vw, 2rem);
+}
+    .productPickupForm label > textarea{
         height: 50%;
+        margin: unset;
+    }
+    .productPickupFormControls{
+        margin: unset;
     }
 }

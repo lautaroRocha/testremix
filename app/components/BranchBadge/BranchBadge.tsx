@@ -5,17 +5,18 @@ import "react-loading-skeleton/dist/skeleton.css"
 import { useParams } from "react-router-dom"
 import { useWindowSize } from "../../hooks/useWindowSize"
 import { useAppSelector } from "../../redux/hooks"
+import { BranchOffice } from "~/@types"
 
-const BranchBadge = () => {
+const BranchBadge = ({data}:{data?: BranchOffice}) => {
   const { business } = useParams()
   const { width } = useWindowSize()
   const { selected } = useAppSelector((state) => state.branch)
 
-  if (!selected) {
+  if (!selected && !data) {
     return <Skeleton className={style.loadingBadge} />
   }
 
-  const { branch_name, address, location } = selected
+  const { branch_name, address, location } = selected ?? data
   const fullAddress = `${address}, ${location}`
 
   const MAX_CHARACTERS_ADDRESS = 40

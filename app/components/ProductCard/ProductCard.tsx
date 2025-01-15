@@ -31,7 +31,7 @@ const ProductCard = ({ product, onClick, isSelected }: ProductCardProps) => {
     >
       <LazyLoadImage
         width={"100%"}
-        height={5}
+        height={'70%'}
         src={product.image || defaultImage}
         onError={(e) => ((e.target as HTMLImageElement).src = defaultImage)}
         placeholderSrc={defaultImage}

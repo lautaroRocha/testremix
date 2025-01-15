@@ -13,9 +13,11 @@ import {
 import useMenu from "./hooks/useMenu"
 import style from "./menu.module.css"
 import { useTranslation } from "react-i18next"
-import { Product, ProductCategory } from "~/@types"
+import { BranchOffice, Product, ProductCategory } from "~/@types"
+import { useRef } from "react"
+import useHeaderHeight from "~/hooks/useHeaderHeight"
 
-const Menu = ({products, categories} : {products: Product[], categories: ProductCategory[]}) => {
+const Menu = ({products, categories, image, branch} : {products: Product[], categories: ProductCategory[], image: string, branch: BranchOffice}) => {
 
   const {
     selectedCategory,
@@ -34,21 +36,25 @@ const Menu = ({products, categories} : {products: Product[], categories: Product
 
   const { t } = useTranslation("menu")
 
+  const mainRef = useRef<HTMLElement>(null)
+
+  const small = useHeaderHeight(mainRef)
+
   return (
     <div className={style.menu}>
-      <header>
+      <header className={small ? style.small : ""}>
         <div className={style.headerLeft} />
         <div className={style.headerCenter} />
         <div className={style.headerRight} />
         <section>
-          <Logo />
-          <BranchBadge />
+          <Logo imageUrl={image}/>
+          <BranchBadge data={branch}/>
         </section>
       </header>
       <div>
         <Searchbar handleSearch={handleSearch} placeholder={t("searchPlaceholder")} />
       </div>
-      <main>
+      <main ref={mainRef}>
         {query ? (
           <p className={style.queryTotal}>
             {t("searchResult")} ( {Object.values(data)[0].length} )
@@ -56,7 +62,8 @@ const Menu = ({products, categories} : {products: Product[], categories: Product
         ) : loading ? (
           <Skeleton />
         ) : (
-          <Chips data={categoriesAsIconOptions} selected={selectedCategory} select={goToCategory} />
+          <Chips data={categoriesAsIconOptions} selected={selectedCategory} select={goToCategory} smallHeader={small}
+          />
         )}
 
         {query && !loading ? (
@@ -89,7 +96,7 @@ const Menu = ({products, categories} : {products: Product[], categories: Product
         )}
         <UpButton />
       </main>
-      <ProductDetail product={selectedProduct} reset={handleProductSelectionReset} />
+      <ProductDetail product={selectedProduct} reset={handleProductSelectionReset} branch={branch} />
     </div>
   )
 }

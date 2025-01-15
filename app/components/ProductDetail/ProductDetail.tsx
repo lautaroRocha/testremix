@@ -1,4 +1,4 @@
-import { Product } from "../../@types"
+import { BranchOffice, Product } from "../../@types"
 import { numberFormat } from "../../utils/numberFormat"
 import style from "./productDetail.module.css"
 import backArrow from "../../assets/back.svg"
@@ -15,9 +15,10 @@ import { currencyFormat } from "../../utils/currencyFormat"
 export interface ProductDetailProps {
   product: Product | null
   reset: () => void
+  branch?: BranchOffice
 }
 
-const ProductDetail = ({ product, reset }: ProductDetailProps) => {
+const ProductDetail = ({ product, reset, branch }: ProductDetailProps) => {
   const [active, setActive] = useState<boolean>(false)
   const [animate, setAnimate] = useState<boolean>(false)
 
@@ -25,6 +26,8 @@ const ProductDetail = ({ product, reset }: ProductDetailProps) => {
   const [originalOverlayColor, setOriginalOverlayColor] = useState<string>("")
 
   const { selected } = useAppSelector((state) => state.branch)
+
+  const {currency_code} = branch ?? selected
 
   const { isPickup } = useContext(PickupContext)
 
@@ -145,7 +148,7 @@ const ProductDetail = ({ product, reset }: ProductDetailProps) => {
             <span>
               <span className={style.imgDrop}></span>
               <img src={foodIcon} draggable={false} />
-              <label>{product.product_category.category_name}</label>
+              <label>{product?.product_category?.category_name}</label>
             </span>
           </header>
           <h3>{product?.product_name}</h3>
@@ -156,7 +159,7 @@ const ProductDetail = ({ product, reset }: ProductDetailProps) => {
             <span>
               {currencyFormat(
                 numberFormat.format(product.price || 0) || 0.0,
-                selected.currency_code
+                currency_code
               )}
             </span>
           )}

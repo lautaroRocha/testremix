@@ -101,6 +101,11 @@
 }
 
 @media(min-width:950px){
+    .productCard{
+        max-height: unset;
+        height: 100%;
+    }
+
     .productCard h3{
         margin-top: 1ch;
         font-size: 17px;
