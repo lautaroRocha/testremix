@@ -17,8 +17,9 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useAppSelector } from "../../redux/hooks"
 import { currencyFormat } from "../../utils/currencyFormat"
+import { BranchOffice } from "~/@types"
 
-const OrderDetail = () => {
+const OrderDetail = ({branchData}:{branchData: BranchOffice}) => {
   const { order, orderItemsAmount, orderFullPrice, selectedFromOrder, resetSelection } =
     useContext(OrderContext)
   const { width } = useWindowSize()
@@ -28,9 +29,11 @@ const OrderDetail = () => {
 
   const { t } = useTranslation("orderDetail")
 
-  if (!order.length) {
-    navigate(`/${business}/${branch}/pickup`, { replace: true })
-  }
+  // if (!order.length) {
+  //   navigate(`/${business}/${branch}/pickup`, { replace: true })
+  // }
+
+  const {currency_code} = selected ?? branchData
 
   return (
     <div className={style.orderDetail}>
@@ -48,11 +51,11 @@ const OrderDetail = () => {
         <header>
           <img src={orderIcon} alt="" draggable={false} />
           <h1>{t("title")}</h1>
-          <OrderType />
+          <OrderType branch={branchData}/>
         </header>
       )}
       <main>
-        {width && width > 925 ? <OrderType /> : null}
+        {width && width > 925 ? <OrderType branch={branchData}/> : null}
         <p>
           <h3>{t("brief")}</h3>
           <h3>
@@ -70,7 +73,7 @@ const OrderDetail = () => {
         {width && width > 925 ? (
           <p className={style.orderDetailBottom}>
             <span>{t("totalAmount")}</span>
-            <span>{currencyFormat(orderFullPrice(), selected.currency_code)}</span>
+            <span>{currencyFormat(orderFullPrice(), currency_code)}</span>
           </p>
         ) : null}
       </main>
@@ -83,7 +86,7 @@ const OrderDetail = () => {
           <PaymentMethods />
         </section>
       )}
-      {width && width < 950 && <OrderBrief />}
+      {width && width < 950 && <OrderBrief branchData={branchData}/>}
       {selectedFromOrder ? (
         <ProductDetail product={selectedFromOrder.product} reset={resetSelection} />
       ) : null}

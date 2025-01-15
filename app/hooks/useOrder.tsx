@@ -131,7 +131,6 @@ const useOrder = () => {
     const cookiesKeys = cookies.map((cook) => cook.split("=")[0].trim())
     cookiesKeys.forEach((key) => {
       if (key.includes("order") && key !== encodeURIComponent(`${business}/${branch}/order`)) {
-        console.log("remove -> : " + key)
         Cookies.remove(encodeURIComponent(key), { path: "/", domain: window.location.hostname })
       }
     })

@@ -1,18 +1,17 @@
 import style from "./orderType.module.css"
 import { useParams } from "react-router-dom"
 import branchPickup from "../../assets/branch-pickup.svg"
-import { useAppSelector } from "../../redux/hooks"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "../../hooks/useWindowSize"
+import { BranchOffice} from "~/@types"
 
 const MAX_ADDRESS_LENGTH = 70
 const BLANK_SPACES = 4
 
-const OrderType = () => {
+const OrderType = ({branch}:{branch: BranchOffice}) => {
   const { business } = useParams()
   const { t } = useTranslation("orderDetail")
-  const { selected } = useAppSelector((state) => state.branch)
-  const { address, location, branch_name } = selected
+  const { address, location, branch_name } = branch
   const { width } = useWindowSize()
 
   const fullLocationText = business + branch_name + address + location

@@ -11,7 +11,7 @@ import "./tailwind.css";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { Dispatch, SetStateAction, createContext } from "react";
-import { PickupOrder, PickupOrderProduct } from "./hooks/useOrder";
+import useOrder, { PickupOrder, PickupOrderProduct } from "./hooks/useOrder";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

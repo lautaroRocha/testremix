@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosRequestConfig } from "axios"
 import curlirize from 'axios-curlirize';
 // import { constants } from "./constants"
 
-const API_BASE_URL = 'http://localhost:8080/api'
+const API_BASE_URL = 'https://gastronomix-test.infosis.tech/api'
 
 curlirize(axios)
 

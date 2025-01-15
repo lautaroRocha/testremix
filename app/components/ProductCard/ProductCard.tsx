@@ -8,7 +8,7 @@ import * as LazyImage from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import { useAppSelector } from "../../redux/hooks"
 import { currencyFormat } from "../../utils/currencyFormat"
-import { PickupContext, OrderContext } from "~/App"
+import { OrderContext, PickupContext } from "~/App"
 
 export interface ProductCardProps {
   product: Product
@@ -19,7 +19,7 @@ export interface ProductCardProps {
 const {LazyLoadImage} = LazyImage
 
 const ProductCard = ({ product, onClick, isSelected }: ProductCardProps) => {
-  const { isPickup } = useContext(PickupContext)
+  const isPickup = window.location.pathname.includes('pickup')
   const { selected } = useAppSelector((state) => state.branch)
 
   return (
@@ -48,7 +48,7 @@ const ProductCard = ({ product, onClick, isSelected }: ProductCardProps) => {
 export default ProductCard
 
 const AddOrAdded = ({ id }: { id: string }) => {
-  const { isPickup } = useContext(PickupContext)
+  const isPickup = window.location.pathname.includes('pickup')
 
   if (!isPickup) {
     return null

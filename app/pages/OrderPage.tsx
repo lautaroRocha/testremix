@@ -3,9 +3,8 @@ import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { constants } from "~/config/constants";
 import { Product, ProductCategory } from "~/@types";
-import { Menu, Pickup, Spinner } from "~/components";
+import { Spinner } from "~/components";
 import {  ClientOnly  }  from  "remix-utils/client-only" ;
-import { withBackButton } from "~/components/WithBackButton/WithBackButton";
 import { capitalizeWords } from "~/utils/capitalize";
 import { getAuthAndTenant } from "~/utils/getAuthAndTenant";
 import PickupWrapper from "~/components/Pickuo/Pickup";
@@ -96,7 +95,7 @@ export const loader = async ({ params, request }: { params: Params<any>, request
                 categories: categoriesWithProducts(categories, products),
                 tenantImage,
                 branchData,
-                isOrder: false
+                isOrder: true
             }), {
                 headers: {
                     'Set-Cookie': cookiesToSend.join(', ')
@@ -118,7 +117,7 @@ export const meta: MetaFunction = ({params, data}) => {
 
     return [
         { title: `${capitalizeWords(params.business || '')} - ${capitalizeWords(params.branch || '').replaceAll('-', ' ')} - Pickup` },
-        { name: "description", content: "Menú digital" },
+        { name: "description", content: "Mi orden" },
         { tagName: 'link', rel: "icon", href: tenantImage }, 
 
     ];
@@ -129,15 +128,16 @@ export default function Index() {
     const data = useLoaderData<typeof loader>();
     const { products, categories, tenantImage, branchData } = JSON.parse(data)
 
-    console.log('PICKUP')
+    console.log('ORDER')
+
 
     return <ClientOnly fallback={<Spinner />}>
                 { () => <PickupWrapper 
                             categories={categories} 
                             products={products} 
                             image={tenantImage} 
-                            branch={branchData}
-                />}
+                            branch={branchData} 
+                            />}
             </ClientOnly>
 
 }

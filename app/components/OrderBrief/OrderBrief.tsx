@@ -31,9 +31,9 @@ const OrderBrief = ({branchData}:{branchData: BranchOffice}) => {
 
   const returnToPickup = () => navigate(`/${business}/${branch}/pickup`)
 
-  const goToPaymentMethods = () => navigate(`/${business}/${branch}/mi-orden/confirmar`)
+  const goToPaymentMethods = () => navigate(`/${business}/${branch}/pickup/mi-orden/confirmar`)
 
-  const goToOrder = () => navigate(`/${business}/${branch}/mi-orden`)
+  const goToOrder = () => navigate(`/${business}/${branch}/pickup/mi-orden`)
 
   const {currency_code} = selected ?? branchData
 
@@ -53,7 +53,7 @@ const OrderBrief = ({branchData}:{branchData: BranchOffice}) => {
             <img src={orderIcon} alt="" draggable={false} />
             <h2>{t("title")}</h2>
           </header>
-          <OrderType />
+          <OrderType branch={branchData}/>
           <CollapseList data={order?.map((or) => or.product)} />
         </div>
       ) : IS_ORDER_DETAIL ? (

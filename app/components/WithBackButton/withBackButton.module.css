@@ -121,7 +121,7 @@
 
 .navOverlay nav .activeLink::after{
     content: ' ';
-    background: url(/src/client/assets/check.svg) center no-repeat;
+    background: url(/assets/check.svg) center no-repeat;
     width: 1rem;
     margin-left: auto;
     aspect-ratio: 1/1;

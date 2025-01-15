@@ -29,12 +29,12 @@ const ProductPickupForm = ({ product, onSubmit, branch }: ProductPickupFormProps
     return () => setQuantity(1)
   }, [])
 
-  useEffect(() => {
-    if (isProductInOrder(product.id)) {
-      setQuantity(amountOfProductInOrder(product.id))
-      setComment(productCommentsInOrder(product.id))
-    }
-  }, [product])
+  // useEffect(() => {
+  //   if (isProductInOrder(product.id)) {
+  //     setQuantity(amountOfProductInOrder(product.id))
+  //     setComment(productCommentsInOrder(product.id))
+  //   }
+  // }, [product])
 
   const addToOrder = () => {
     if (isProductInOrder(product.id)) {

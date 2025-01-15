@@ -4,8 +4,6 @@ import { Product, ProductCategory } from "../../../@types"
 import { useAppSelector } from "../../../redux/hooks"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "../../../hooks/useWindowSize"
-import { capitalizeWords } from "../../../utils/capitalize"
-import Cookies from "js-cookie"
 import { OrderContext } from "../../../App"
 
 const usePickup = (data: Product[], categories: ProductCategory[]) => {
