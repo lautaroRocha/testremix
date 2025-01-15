@@ -50,6 +50,7 @@
     "winston": "3.10.0"
   },
   "devDependencies": {
+    "@netlify/vite-plugin-react-router": "^1.0.0",
     "@remix-run/dev": "^2.15.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
