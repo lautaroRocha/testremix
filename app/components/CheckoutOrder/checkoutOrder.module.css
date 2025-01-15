@@ -1,0 +1,41 @@
+.checkoutOrder{
+    background: var(--grey-5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 100%;
+    border-radius: 15px 15px 0 0;
+    padding: 2rem 1rem;
+    transition: top .3s ease-in-out;
+    animation-name: upOrder;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes upOrder{
+    0%{
+        top: 100%;
+    }
+    80%{
+        top: 3rem;
+    }
+    100%{
+        top: 4rem;
+    }
+}
+
+
+.checkoutOrder h3{
+    color: var(--grey-90);
+}
+
+.checkoutOrder h4{
+    color: var(--turquoise-100);
+    margin-top: 1ch;
+
+}
+
+.checkoutOrder img{
+    width: 100%;
+    margin-top: 2rem;
+}

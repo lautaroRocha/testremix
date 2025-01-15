@@ -1,0 +1,123 @@
+.businessSplash{
+    width: 100dvw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/backdrop.png') var(--yellow-100) 40% / cover no-repeat;
+    position: relative;
+}
+
+.businessSplash::after{
+    content: ' ';
+    background: linear-gradient(180deg, var(--white) 11.44%,var(--yellow-100) 36.37%);
+    mix-blend-mode: multiply;
+    opacity: .3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+.businessSplash figure {
+    width: 25%;
+    background-color: var(--white);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding: .5rem;
+    transform: translateY(0);
+    transition: transform ease-in-out .5s;
+    z-index: 10000;
+}
+
+.businessSplash figure img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.businessSplash span {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    transform: translateY(-7vh);
+    opacity: 0;
+    transition: all ease-in-out .5s;
+    z-index: 10;
+    margin-top: 0;
+    margin-left: 0;
+}
+
+@keyframes upLogo {
+    0%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(-6dvh);
+    }
+}
+
+@keyframes upCaption {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 1rem;
+    }
+}
+
+.animateLogo{
+    animation-name: upLogo;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.animateCaption{
+    animation-name: upCaption;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+
+@media (min-width:950px){
+
+    @keyframes upLogo {
+        0%{
+            transform: translateX(0);
+        }
+        100%{
+            transform: translateX(-100%);
+        }
+    }
+
+    .businessSplash{
+        background: unset;
+        flex-direction: row;
+    }
+    
+    .businessSplash::after{
+        content: unset;
+        display: none;
+    }
+    
+
+    .businessSplash figure{
+        width: 15%;
+        max-width: 200px;
+    }
+
+    .businessSplash span {
+        position: absolute;
+        bottom: 40vh;
+        left: 48vw;
+        font-size: 24px;
+        opacity: 0;
+        transition: opacity .5s;
+        z-index: 10;
+    }
+}

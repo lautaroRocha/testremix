@@ -1,0 +1,92 @@
+.collapseList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--turquoise-5);
+    padding: 13px;
+
+}
+
+.collapseList header {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--grey-100);
+    display: flex;
+    gap: 1ch;
+}
+
+.collapseList header img{
+    filter:  brightness(0) saturate(100) invert(63%) sepia(48%) saturate(5321%) hue-rotate(147deg) brightness(94%) contrast(91%);
+}
+
+.collapseList header >button{
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: auto;
+    transform: rotateX(0deg); 
+    transition: transform .3s ease-in-out;
+}
+
+.collapseList.open header >button{
+   transform: rotateX(180deg); 
+}
+
+.collapseList li{
+    display: flex;
+    border-radius: 6px;
+    height: 54px;
+    border-radius: 6px;
+    border: 1px solid var(--turquoise-20);
+    background: var(--white);
+    padding: 6px 10px;
+    gap: 1ch;
+    position: relative;
+}
+
+.collapseList ul {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .3s ease-in-out;
+}
+
+.collapseList.open {
+    gap: 1rem;
+}
+
+.collapseList.open ul{
+    max-height: 80dvh;
+}
+
+.collapseList li img {
+    width: 46px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    object-fit: fill;
+}
+
+.collapseList li section{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: start;
+}
+.collapseList li section > h4{
+    font-size: 12px;
+    color: var(--grey-100);
+    font-weight: 700;
+}
+
+.collapseList li section > span{
+    color: var(--turquoise-100);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.collapseList li p {
+    position: absolute;
+    right: 2ch;
+    top: 1ch;
+    color: var(--grey-100);
+    font-size: 11px;
+}
