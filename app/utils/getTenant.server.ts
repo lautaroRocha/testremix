@@ -4,12 +4,14 @@ import { constants } from "~/config/constants"
 import { imageCookie, tenantCookie } from "./cookies.server"
 
 export const getTenant = async(alias: string, token: string, timestamp: string) => {
+  console.log('PARAMS')
+  console.log(timestamp)
     try{
         const res = await apiService.get<Tenant>(constants.API_BUSINESS, {
             headers: {
               alias : alias,
               session: token,
-              timestamp: timestamp,
+              timestamp: timestamp ?? String(Date.now()),
               'Content-Type': 'application/json'
             }
           })

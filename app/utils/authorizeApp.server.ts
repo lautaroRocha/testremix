@@ -7,7 +7,6 @@ export const authorizeApp = async () => {
     if (token) {
       const authCookieSerialized = await authCookie.serialize(JSON.stringify(token.access_token));
       const timeStampCookieSerialized = await timeStampCookie.serialize(String(Date.now()));
-
       return {
         token: JSON.stringify(token.access_token),
         timestamp: String(Date.now()),

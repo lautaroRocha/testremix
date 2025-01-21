@@ -21,7 +21,7 @@ export const loader = async({params, request}:{params: Params<'business'>, reque
       if(authResult?.token && authResult?.timestamp){
         const {token, timestamp, cookies} = authResult;
         mainToken = token;
-        mainTimestamp = timestamp;
+        mainTimestamp = timestamp ?? String(Date.now());
         cookiesToSend = cookies
       }
     }catch(e){

@@ -3,7 +3,7 @@ import { createCookie } from "@remix-run/node";
 export const authCookie = createCookie('auth_token', {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', 
-    maxAge: 60 * 60 * 24 * 7, 
+    maxAge: 29999,
     sameSite: 'lax',
     path: '/'
   });
@@ -11,7 +11,7 @@ export const authCookie = createCookie('auth_token', {
   export const timeStampCookie = createCookie('timestamp', {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', 
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 29999,
     sameSite: 'lax',
     path: '/'
   })
@@ -19,7 +19,7 @@ export const authCookie = createCookie('auth_token', {
   export const imageCookie = createCookie('image', {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', 
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 29999,
     sameSite: 'lax',
     path: '/'
   })
@@ -27,7 +27,7 @@ export const authCookie = createCookie('auth_token', {
   export const tenantCookie = createCookie('tenant', {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production', 
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 29999,
     sameSite: 'lax',
     path: '/'
   })
