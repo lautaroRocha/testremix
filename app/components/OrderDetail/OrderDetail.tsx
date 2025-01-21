@@ -1,5 +1,5 @@
 import style from "./OrderDetail.module.css"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { OrderContext } from "../../App"
 import orderIllustration from "../../assets/orderIllus.svg"
 import {
@@ -29,9 +29,12 @@ const OrderDetail = ({branchData}:{branchData: BranchOffice}) => {
 
   const { t } = useTranslation("orderDetail")
 
-  // if (!order.length) {
-  //   navigate(`/${business}/${branch}/pickup`, { replace: true })
-  // }
+  useEffect(() => {
+    if (!order.length) {
+      navigate(`/${business}/${branch}/pickup`, { replace: true })
+    }
+  }, [])
+
 
   const {currency_code} = selected ?? branchData
 
@@ -43,8 +46,8 @@ const OrderDetail = ({branchData}:{branchData: BranchOffice}) => {
           <div className={style.headerCenter} />
           <div className={style.headerRight} />
           <section>
-            <Logo />
-            <BranchBadge />
+            <Logo imageUrl={branchData.image}/>
+            <BranchBadge data={branchData}/>
           </section>
         </header>
       ) : (
