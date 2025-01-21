@@ -8,7 +8,6 @@ import {  ClientOnly  }  from  "remix-utils/client-only" ;
 import { withBackButton } from "~/components/WithBackButton/WithBackButton";
 import { capitalizeWords } from "~/utils/capitalize";
 import { getAuthAndTenant } from "~/utils/getAuthAndTenant";
-import PickupWrapper from "~/components/Pickuo/Pickup";
 
 export const loader = async ({ params, request }: { params: Params<any>, request: any }) => {
     const { branch, business } = params;
@@ -132,12 +131,7 @@ export default function Index() {
     console.log('PICKUP')
 
     return <ClientOnly fallback={<Spinner />}>
-                { () => <PickupWrapper 
-                            categories={categories} 
-                            products={products} 
-                            image={tenantImage} 
-                            branch={branchData}
-                />}
+                { () => withBackButton(<Pickup categories={categories} products={products} image={tenantImage} branch={branchData}/>, true, true)}
             </ClientOnly>
 
 }

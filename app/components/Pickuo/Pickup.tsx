@@ -20,31 +20,6 @@ import { useTranslation } from "react-i18next"
 import useHeaderHeight from "../../hooks/useHeaderHeight"
 import { useSearchParams } from "react-router-dom"
 import { BranchOffice, Product, ProductCategory } from "~/@types"
-import useOrder from "~/hooks/useOrder"
-import { withBackButton } from "../WithBackButton/WithBackButton"
-import { PickupContext } from "~/root"
-import { useLoaderData } from "@remix-run/react"
-
-const PickupWrapper = ({products, categories, image, branch} : {products: Product[], categories: ProductCategory[], image: string, branch: BranchOffice, isOrder?: boolean}) => {
-  
-  const contextValues = useOrder()
-
-  const {isOrder} = useLoaderData<any>()
-
-  return(
-    <PickupContext.Provider
-      value={{
-        isPickup: true
-      }}
-    >
-    <OrderContext.Provider value={{ ...contextValues }}>
-      { isOrder ? <OrderDetail branchData={branch}/> : withBackButton(<Pickup categories={categories} products={products} image={image} branch={branch}/>, true, true)    }
- </OrderContext.Provider>
-     </PickupContext.Provider>
-
-
-  )
-}
 
 
 const Pickup = ({products, categories, image, branch} : {products: Product[], categories: ProductCategory[], image: string, branch: BranchOffice}) => {
@@ -148,4 +123,4 @@ const Pickup = ({products, categories, image, branch} : {products: Product[], ca
   )
 }
 
-export default PickupWrapper
+export default Pickup

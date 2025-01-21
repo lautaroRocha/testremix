@@ -3,11 +3,10 @@ import { Params, useLoaderData } from "@remix-run/react";
 import apiService from "~/config/API";
 import { constants } from "~/config/constants";
 import { Product, ProductCategory } from "~/@types";
-import { Spinner } from "~/components";
+import { OrderDetail, Spinner } from "~/components";
 import {  ClientOnly  }  from  "remix-utils/client-only" ;
 import { capitalizeWords } from "~/utils/capitalize";
 import { getAuthAndTenant } from "~/utils/getAuthAndTenant";
-import PickupWrapper from "~/components/Pickuo/Pickup";
 
 export const loader = async ({ params, request }: { params: Params<any>, request: any }) => {
     const { branch, business } = params;
@@ -126,18 +125,10 @@ export const meta: MetaFunction = ({params, data}) => {
 export default function Index() {
 
     const data = useLoaderData<typeof loader>();
-    const { products, categories, tenantImage, branchData } = JSON.parse(data)
-
-    console.log('ORDER')
-
+    const { branchData } = JSON.parse(data)
 
     return <ClientOnly fallback={<Spinner />}>
-                { () => <PickupWrapper 
-                            categories={categories} 
-                            products={products} 
-                            image={tenantImage} 
-                            branch={branchData} 
-                            />}
+                { () => <OrderDetail branchData={branchData}/>}
             </ClientOnly>
 
 }

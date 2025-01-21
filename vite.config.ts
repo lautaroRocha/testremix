@@ -1,7 +1,6 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import netlifyPlugin from '@netlify/vite-plugin-react-router'
 
 declare module "@remix-run/node" {
   interface Future {
@@ -20,8 +19,10 @@ export default defineConfig({
           route(":business/seleccionar-sucursal", "pages/SelectBranchPage.tsx");
           route(":business/:branch", "pages/SelectedBranchPage.tsx");
           route(":business/:branch/menu", "pages/MenuPage.tsx");
-          route(":business/:branch/pickup", "pages/PickupPage.tsx");
-          route(":business/:branch/pickup/mi-orden", "pages/OrderPage.tsx");
+          route(":business/:branch/pickup", "layout/PickupLayout.tsx", () => {
+            route("", "pages/PickupPage.tsx", {index: true});
+            route("mi-orden", "pages/OrderPage.tsx");
+          })
           });
       },
       future: {
@@ -32,7 +33,6 @@ export default defineConfig({
         v3_lazyRouteDiscovery: true,
       },
     }),
-    tsconfigPaths(),
-    netlifyPlugin()
-  ],
+    tsconfigPaths()
+  ]
 });
