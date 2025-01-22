@@ -1,5 +1,5 @@
 import { authCookie, timeStampCookie } from "~/utils/cookies.server";
-import { LoaderFunction, redirect} from "react-router-dom";
+import { LoaderFunction, redirect} from "@remix-run/react";
 import { getAccessToken } from "~/utils/getToken.server";
 import { Spinner } from "~/components";
 

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes } from "@remix-run/react"
 import { ROUTES } from "../../utils/routes"
 import { ReactNode } from "react"
 

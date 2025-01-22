@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BranchOffice } from "../../../@types"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "@remix-run/react"
 import { capitalizeWords } from "../../../utils/capitalize"
 
 const useBranchSelector = (data: BranchOffice[]) => {

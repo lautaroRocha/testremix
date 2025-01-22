@@ -1,5 +1,5 @@
 import style from "./withBackButton.module.css"
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "@remix-run/react"
 import homeIcon from "../../assets/home.svg"
 import menuIcon from "../../assets/menu.svg"
 import arrowIcon from "../../assets/back.svg"

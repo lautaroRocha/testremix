@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import apiService from "../../../config/API"
 import { constants } from "../../../config/constants"
-import { useParams } from "react-router-dom"
+import { useParams } from "@remix-run/react"
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks"
 import { reset, setTenant } from "../../../redux/slices/tenantSlice"
 import Cookies from "js-cookie"

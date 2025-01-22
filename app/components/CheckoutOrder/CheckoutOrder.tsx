@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "@remix-run/react"
 import style from "./checkoutOrder.module.css"
 import orderIllus from "../../assets/orderIllus.svg"
 import { capitalizeWords } from "../../utils/capitalize"

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from "@remix-run/react"
 import useProductAndCategories from "./hooks/useProductsAndCategories"
 import { CategoriesContext, ProductsContext } from "./context"
 

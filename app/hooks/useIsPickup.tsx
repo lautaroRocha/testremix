@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation } from "@remix-run/react"
 
 const PICKUP_ROUTES = ["pickup", "mi-orden"]
 

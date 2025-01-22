@@ -1,5 +1,5 @@
 import style from "./orderType.module.css"
-import { useParams } from "react-router-dom"
+import { useParams } from "@remix-run/react"
 import branchPickup from "../../assets/branch-pickup.svg"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "../../hooks/useWindowSize"

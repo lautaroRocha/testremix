@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { BranchOffice, Product, ProductCategory } from "../../../@types"
 import apiService from "../../../config/API"
 import { constants } from "../../../config/constants"
-import { useParams } from "react-router-dom"
+import { useParams } from "@remix-run/react"
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks"
 import { setSelectedBranch } from "../../../redux/slices/branchSlice"
 

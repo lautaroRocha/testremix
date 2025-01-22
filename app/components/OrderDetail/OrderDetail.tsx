@@ -13,7 +13,7 @@ import {
 } from ".."
 import orderIcon from "../../assets/order.svg"
 import { useWindowSize } from "../../hooks/useWindowSize"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import { useAppSelector } from "../../redux/hooks"
 import { currencyFormat } from "../../utils/currencyFormat"

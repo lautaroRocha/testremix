@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Tenant } from "../../../@types"
-import { useNavigate } from "react-router-dom"
 import { capitalizeWords } from "../../../utils/capitalize"
+import { useNavigate } from "@remix-run/react"
 
 const useTenantSelector = (data: Tenant[] | undefined) => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -10,6 +10,8 @@ const useTenantSelector = (data: Tenant[] | undefined) => {
   const [selected, setSelected] = useState<Tenant | null>(null)
   const [query, setQuery] = useState<string>("")
   const navigate = useNavigate()
+
+  console.log(data)
 
 
   useEffect(() => {

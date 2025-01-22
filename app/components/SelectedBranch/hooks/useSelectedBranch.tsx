@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "@remix-run/react"
 import { useEffect, useState } from "react"
 import apiService from "../../../config/API"
 import { constants } from "../../../config/constants"

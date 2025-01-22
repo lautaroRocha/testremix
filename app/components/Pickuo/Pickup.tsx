@@ -18,7 +18,7 @@ import style from "./pickup.module.css"
 import { OrderContext } from "../../App"
 import { useTranslation } from "react-i18next"
 import useHeaderHeight from "../../hooks/useHeaderHeight"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams } from "@remix-run/react"
 import { BranchOffice, Product, ProductCategory } from "~/@types"
 
 

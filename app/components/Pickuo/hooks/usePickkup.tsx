@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "@remix-run/react"
 import { Product, ProductCategory } from "../../../@types"
 import { useAppSelector } from "../../../redux/hooks"
 import { useTranslation } from "react-i18next"
