@@ -9,6 +9,14 @@ declare module "@remix-run/node" {
 }
 
 export default defineConfig({
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext'
+    }
+  },
+  build: {
+    target: 'esnext'
+  },
   plugins: [
     remix({
       routes(defineRoutes) {

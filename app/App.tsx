@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, createContext } from "react"
 import { PickupOrder, PickupOrderProduct } from "./hooks/useOrder"
-import "./i18n/i18n"
 
 export const PickupContext = createContext({ isPickup: false })
 interface OrderContext {
