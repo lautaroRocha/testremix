@@ -1,7 +1,7 @@
 import style from "./OrderDetail.module.css"
 import { useContext, useEffect } from "react"
 import { OrderContext } from "../../App"
-import orderIllustration from "../../assets/orderIllus.svg"
+import orderIllustration from "/assets/orderIllus.svg"
 import {
   BranchBadge,
   Logo,
@@ -11,7 +11,7 @@ import {
   PaymentMethods,
   ProductDetail
 } from ".."
-import orderIcon from "../../assets/order.svg"
+import orderIcon from "/assets/order.svg"
 import { useWindowSize } from "../../hooks/useWindowSize"
 import { useNavigate, useParams } from "@remix-run/react"
 import { useTranslation } from "react-i18next"

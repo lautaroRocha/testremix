@@ -1,6 +1,6 @@
 import style from "./tenantSelector.module.css"
 import { Tenant } from "../../@types"
-import branchArrow from "../../assets/brancharrow.svg"
+import branchArrow from "/assets/brancharrow.svg"
 import { Logo, NotFound, Searchbar } from ".."
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"

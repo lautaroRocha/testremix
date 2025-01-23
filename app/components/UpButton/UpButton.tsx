@@ -1,5 +1,5 @@
 import style from "./UpButton.module.css"
-import arrowIcon from "../../assets/brancharrow.svg"
+import arrowIcon from "/assets/brancharrow.svg"
 import { useEffect, useRef, useState } from "react"
 
 const UpButton = ({ right, bottom }: { right?: string; bottom?: string }) => {

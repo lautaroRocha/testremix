@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
 import style from "./Toast.module.css"
-import checkIcon from "../../assets/check.svg"
+import checkIcon from "/assets/check.svg"
 import errorIcon from "./assets/error.svg"
 
 export interface ToastProps {

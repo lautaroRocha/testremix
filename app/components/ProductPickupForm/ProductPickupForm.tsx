@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { BranchOffice, Product } from "../../@types"
 import style from "./productPickupForm.module.css"
-import addIcon from "../../assets/add.svg"
+import addIcon from "/assets/add.svg"
 import { numberFormat } from "../../utils/numberFormat"
 import { OrderContext } from "../../App"
 import { useTranslation } from "react-i18next"

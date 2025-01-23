@@ -1,5 +1,5 @@
 import style from "./branchBadge.module.css"
-import addressIcon from "../../assets/adress.svg"
+import addressIcon from "/assets/adress.svg"
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
 import { useParams } from "@remix-run/react"

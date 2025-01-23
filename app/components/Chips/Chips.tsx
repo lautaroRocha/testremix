@@ -1,5 +1,5 @@
 import style from "./chips.module.css"
-import foodIcon from "../../assets/food.svg"
+import foodIcon from "/assets/food.svg"
 import { Option } from "../../@types"
 import { useContext, useEffect, useRef } from "react"
 import { PickupContext } from "../../App"

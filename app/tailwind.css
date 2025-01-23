@@ -219,7 +219,7 @@ main {
 
 @media(min-width:950px) {
   :root {
-    background: url('./assets/backdrop.png') var(--yellow-100) 40% / cover no-repeat;
+    background: url(' /assets/backdrop.png') var(--yellow-100) 40% / cover no-repeat;
     position: relative;
   }
 

@@ -1,6 +1,6 @@
 import style from "./searchbar.module.css"
-import searchIcon from "../../assets/search.svg"
-import yellowSearchIcon from "../../assets/yellowSearch.svg"
+import searchIcon from "/assets/search.svg"
+import yellowSearchIcon from "/assets/yellowSearch.svg"
 import { useContext } from "react"
 import { PickupContext } from "../../App"
 
