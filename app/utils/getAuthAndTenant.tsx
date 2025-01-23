@@ -9,7 +9,7 @@ export const getAuthAndTenant = async(request: Request, business: string) => {
     let mainTenant = await tenantCookie.parse(cookie)
     let tenantImage = await imageCookie.parse(cookie);
     let cookiesToSend : string[] = [];
-    if(mainToken === null){
+    if(mainToken === null || mainTimestamp === null){
       try{
         const authResult =  await authorizeApp();
         if(authResult?.token && authResult?.timestamp){

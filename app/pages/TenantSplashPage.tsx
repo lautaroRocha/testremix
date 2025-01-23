@@ -15,7 +15,7 @@ export const loader = async({params, request}:{params: Params<'business'>, reque
   if (!business) {
     throw new Response("Business parameter is missing", { status: 400 });
   }
-  if(mainToken === null){
+  if(mainToken === null || mainTimestamp === null){
     try{
       const authResult =  await authorizeApp();
       if(authResult?.token && authResult?.timestamp){

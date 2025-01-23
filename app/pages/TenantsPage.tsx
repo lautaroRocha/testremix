@@ -11,7 +11,7 @@ export const loader = async ({ request } : {request: Request}) => {
   let mainToken = await authCookie.parse(cookie);
   let mainTimestamp = await timeStampCookie.parse(cookie)
   let cookiesToSet: string[] = [];
-  if(mainToken === null){
+  if(mainToken === null || mainTimestamp === null){
     try{
       const authResult =  await authorizeApp();
       if(authResult?.token && authResult?.timestamp){
