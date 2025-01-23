@@ -33,12 +33,11 @@ const useMenu = (data: Product[], categories: ProductCategory[]) => {
   }, [query, data])
 
   useEffect(() => {
-    setLoading(true)
     if (categories.length && products.length && !Object.keys(parsedProducts).length) {
       setParsedProducts(groupByCategory())
       setLoading(false)
     }
-  }, [categories, products])
+  }, [categories, data])
 
   useEffect(() => {
     const { search } = window?.location

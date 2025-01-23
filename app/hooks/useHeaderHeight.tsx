@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useState } from "react"
 
-const useHeaderHeight = (mainRef: RefObject<HTMLElement> | null) => {
+const useHeaderHeight = (mainRef: RefObject<HTMLElement | null> ) => {
   const [small, setSmall] = useState<boolean>(false)
   const scrollThreshold = 25
   const lastScrollY = 0
